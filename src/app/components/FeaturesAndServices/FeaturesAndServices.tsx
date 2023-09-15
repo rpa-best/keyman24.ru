@@ -1,11 +1,20 @@
+'use client';
+
 import React from 'react';
+import { motion } from 'framer-motion';
 
 import { IFeatureData } from 'app/featureData';
 import { SvgWrapper } from 'app/components/FeaturesAndServices/SvgWrapper';
+import { ButtonWrapper } from 'app/components/FeaturesAndServices/ButtonWrapper';
 
 import scss from './FeaturesAndServices.module.scss';
-import { Button } from 'components/UI/Button';
-import { ButtonWrapper } from 'app/components/FeaturesAndServices/ButtonWrapper';
+import {
+    featureBtn,
+    featureImg,
+    featureSect,
+    featureText,
+    textElem,
+} from 'app/components/FeaturesAndServices/motionConfig';
 
 interface FeaturesAndServicesProps {
     features: IFeatureData;
@@ -15,18 +24,38 @@ export const FeaturesAndServices: React.FC<FeaturesAndServicesProps> = ({
     features,
 }) => {
     return (
-        <section className={scss.features_layout}>
+        <motion.section
+            variants={featureSect}
+            viewport={{ once: true, amount: 0.4 }}
+            whileInView="visible"
+            initial="hidden"
+            className={scss.features_layout}
+        >
             <div className={scss.features}>
-                <div className={scss.features_description}>
-                    <h3 className={scss.features_description_title}>
+                <motion.div className={scss.features_description}>
+                    <motion.h3
+                        variants={featureText}
+                        custom={1}
+                        className={scss.features_description_title}
+                    >
                         {features.title}
-                    </h3>
-                    <p className={scss.features_description_text}>
+                    </motion.h3>
+                    <motion.p
+                        variants={featureText}
+                        custom={1.2}
+                        className={scss.features_description_text}
+                    >
                         {features.desc}
-                    </p>
+                    </motion.p>
                     <div className={scss.features_list}>
                         {features.featuresList.map((f, i) => (
-                            <div key={i} className={scss.features_list_item}>
+                            <motion.div
+                                variants={textElem}
+                                custom={i + 1}
+                                viewport={{ once: true, amount: 0.4 }}
+                                key={i}
+                                className={scss.features_list_item}
+                            >
                                 <div
                                     className={
                                         i === 0
@@ -37,15 +66,22 @@ export const FeaturesAndServices: React.FC<FeaturesAndServicesProps> = ({
                                     <SvgWrapper />
                                 </div>
                                 <p>{f}</p>
-                            </div>
+                            </motion.div>
                         ))}
                     </div>
-                    <div className={scss.button_wrapper}>
+                    <motion.div
+                        viewport={{ once: true, amount: 0.4 }}
+                        variants={featureBtn}
+                        className={scss.button_wrapper}
+                    >
                         <ButtonWrapper />
-                    </div>
-                </div>
-                <div className={scss.img_wrapper}></div>
+                    </motion.div>
+                </motion.div>
+                <motion.div
+                    variants={featureImg}
+                    className={scss.img_wrapper}
+                ></motion.div>
             </div>
-        </section>
+        </motion.section>
     );
 };

@@ -1,25 +1,41 @@
+'use client';
+
 import React from 'react';
+import { motion } from 'framer-motion';
 
 import { SvgContainer } from 'app/components/Advantages/SvgContainer';
 import { advData } from 'app/components/Advantages/advData';
+import { advElement, advSection } from 'app/components/Advantages/motionConfig';
 
 import scss from './Advantages.module.scss';
 
 export const Advantages = () => {
     return (
-        <section className={scss.main_adv_wrapper}>
+        <motion.section
+            variants={advSection}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.6 }}
+            className={scss.main_adv_wrapper}
+        >
             <div className={scss.main_adv_content}>
                 <div className={scss.main_adv_header}>Главные преимущества</div>
                 <div className={scss.advs}>
                     {advData.map((el, i) => (
-                        <div className={scss.adv_wrapper}>
+                        <motion.div
+                            key={i}
+                            viewport={{ once: true }}
+                            custom={i}
+                            variants={advElement}
+                            className={scss.adv_wrapper}
+                        >
                             <SvgContainer elem={el.svg} />
                             <h5>{el.title}</h5>
                             <p>{el.text}</p>
-                        </div>
+                        </motion.div>
                     ))}
                 </div>
             </div>
-        </section>
+        </motion.section>
     );
 };

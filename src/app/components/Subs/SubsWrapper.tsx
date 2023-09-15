@@ -1,17 +1,18 @@
 'use client';
 
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 
 import StarsSvg from '/public/svg/subs/starsWithoutBorder.svg';
 import DoneSvg from '/public/svg/subs/done.svg';
 import { IService } from 'http/types';
-import { Button } from 'components/UI/Button';
 import { Modal } from 'components/Modal';
 import { useModalStore } from 'store/modalVisibleStore';
 import { Circles } from 'app/components/Subs/SubsCircles/Circles';
 import { Form } from 'app/components/Form';
 
 import scss from './Subs.module.scss';
+import { element, section } from 'app/components/Subs/motionConfig';
 
 interface SubsWrapperProps {
     subs: IService[];
@@ -22,13 +23,22 @@ export const SubsWrapper: React.FC<SubsWrapperProps> = ({ subs }) => {
     const [setVisible] = useModalStore((state) => [state.setVisible]);
 
     return (
-        <section className={scss.subs_layout}>
+        <motion.section
+            variants={section}
+            whileInView="visible"
+            initial="hidden"
+            viewport={{ once: true, amount: 0.2 }}
+            className={scss.subs_layout}
+        >
             <div className={scss.subs_header}>Варианты подписок</div>
             <Circles />
             <div className={scss.subs}>
                 {subs.map((service, i) => {
                     return (
-                        <div
+                        <motion.div
+                            custom={i}
+                            variants={element}
+                            viewport={{ once: true }}
                             onClick={() => {
                                 setVisible(true);
                                 setSelectedSub(service);
@@ -69,10 +79,12 @@ export const SubsWrapper: React.FC<SubsWrapperProps> = ({ subs }) => {
                             <button className={scss.button} onClick={() => {}}>
                                 Выбрать
                             </button>
-                        </div>
+                        </motion.div>
                     );
                 })}
-                <div
+                <motion.div
+                    custom={2}
+                    variants={element}
                     onClick={() => {
                         setSelectedSub(undefined);
                         setVisible(true);
@@ -93,11 +105,11 @@ export const SubsWrapper: React.FC<SubsWrapperProps> = ({ subs }) => {
                     <div className={scss.button_wrapper}>
                         <button className={scss.button}>Выбрать</button>
                     </div>
-                </div>
+                </motion.div>
             </div>
             <Modal>
                 <Form subs={subs} selectedSub={selectedSub} />
             </Modal>
-        </section>
+        </motion.section>
     );
 };

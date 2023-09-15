@@ -8,14 +8,15 @@ import { circleAnimation } from 'motionConfigs/circlesConfig';
 import scss from './Circles.module.scss';
 
 export const Circles = () => {
-    return Array.from({ length: 3 }, (_, index) => index + 1).map((item) => (
+    return Array.from({ length: 3 }, (_, index) => index + 1).map((item, i) => (
         <motion.span
             initial="hidden"
-            animate="visible"
+            whileInView="visible"
             custom={item}
+            viewport={{ once: true, amount: 0.4 }}
             variants={circleAnimation}
             className={scss.circle}
-            key={item}
+            key={i}
         />
     ));
 };

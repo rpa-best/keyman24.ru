@@ -40,7 +40,7 @@ export const img: Variants = {
 };
 export const tags: Variants = {
     hidden: {
-        y: 200,
+        y: 20,
         opacity: 0,
     },
     visible: {
