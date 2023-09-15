@@ -1,0 +1,238 @@
+@import "scss/utils";
+
+.subs_layout {
+  position: relative;
+  @include fullHd {
+    @include bigPcWidth;
+    margin-top: 60px;
+    padding: 60px 80px;
+  }
+  @include minBigPcWidth;
+  padding: 45px 60px;
+  @include thousendTwoWidth {
+    padding: 35px 50px;
+  }
+  @include thousendWidth {
+    padding: 35px 40px;
+  }
+  @include phoneOrTablet {
+    padding: 25px;
+  }
+  @include phone {
+    padding: 15px;
+  }
+  margin-top: 60px;
+  height: max-content;
+  background: $dark-main;
+  border-radius: 40px;
+}
+
+.subs_header {
+  width: 100%;
+  text-align: center;
+  @include MontserratSemiBold(40px);
+  color: white;
+  z-index: 2;
+  @include fullHd {
+    margin-bottom: 56px;
+  }
+  margin-bottom: 40px;
+  @include thousendTwoWidth {
+    font-size: 32px;
+  }
+  @include phoneOrTablet {
+    font-size: 28px;
+  }
+  @include phone {
+    font-size: 24px;
+    margin-bottom: 30px;
+  }
+}
+
+.subs {
+  z-index: 1;
+  display: flex;
+  column-gap: 20px;
+  @include thousendTwoWidth {
+    & .variant {
+      max-width: calc(33% - 20px);
+    }
+    flex-flow: row wrap;
+  }
+  @include thousendTwoWidth {
+    & .variant {
+      max-width: calc(50% - 20px);
+    }
+    flex-flow: row wrap;
+  }
+  @include phoneOrTablet {
+    & .variant {
+      max-width: 100%;
+    }
+  }
+}
+
+.variant_selected {
+  @extend .variant;
+  background-color: #134038!important;
+  & {
+    .button {
+      background-color: $accent-color;
+    }
+    .card_svg {
+      color: #31D7B9;
+    }
+
+    .card_svg_wrapper {
+      background: transparent;
+      border-color: #31D7B9;
+    }
+  }
+}
+
+.variant {
+  @include fullHd {
+    padding: 20px 32px 32px;
+    max-width: 420px;
+  }
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-self: start;
+  break-inside: avoid-column;
+  background: rgba(255, 255, 255, 0.01);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 1px 1px rgba(18, 18, 18, 0.3);
+  backdrop-filter: blur(30px);
+  border-radius: 12px;
+  padding: 18px 26px 30px;
+  cursor: pointer;
+  transition: .2s all ease-in-out;
+  margin-bottom: 20px;
+
+  &:hover {
+    background: #134038;
+    .button {
+      background-color: $accent-color;
+    }
+    .card_svg {
+      color: #31D7B9;
+    }
+
+    .card_svg_wrapper {
+      background: transparent;
+      border-color: #31D7B9;
+    }
+  }
+}
+
+.var_header {
+  display: flex;
+  @include MontserratSemiBold(36px);
+  color: white;
+  align-items: center;
+}
+
+.var_subheader {
+  @include MontserratRegular(18px);
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 16px;
+  @include phoneOrTablet {
+    font-size: 16px;
+  }
+}
+
+.var_price {
+  @include MontserratRegular(18px);
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 10px;
+}
+
+.price {
+  @include MontserratBold(36px);
+  color: white;
+  @include thousendTwoWidth {
+    font-size: 32px;
+  }
+  @include phoneOrTablet {
+    font-size: 24px;
+  }
+}
+
+
+.desc_tags {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  border-top: 1px solid #434343;
+  padding: 16px 0 32px;
+}
+
+.desc_tag_item {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-bottom: 24px;
+  align-items: center;
+
+  p {
+    @include MontserratRegular(18px);
+    color: white;
+    margin-left: 10px;
+    @include phoneOrTablet {
+      font-size: 16px;
+    }
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.card_svg_wrapper {
+  width: 50px;
+  height: 50px;
+  border: 1px solid #ADADAD;
+  padding: 10px;
+  background: #434343;
+  border-radius: 50%;
+  margin-bottom: 15px;
+  transition: .2s all ease-in-out;
+}
+
+.card_svg {
+  color: #ADADAD;
+  border-radius: 50%;
+  transition: .2s all ease-in-out;
+}
+
+.done_svg {
+  @extend .svg;
+  color: #85efac;
+  pointer-events: none;
+}
+
+.button {
+  min-width: 130px;
+  width: 100%;
+  height: 50px;
+  @include fullHd {
+    height: 55px;
+  }
+  transition: .2s all ease-in-out;
+  cursor: pointer;
+  padding: 0 10px;
+  border-radius: 8px;
+  @include MontserratRegular(20px);
+  color: white;
+  border: 2px solid #434343;
+  background: #2D2D2D;
+  @include phoneOrTablet {
+    height: 43px;
+    font-size: 18px;
+  }
+}
+
+.button_wrapper {
+ padding-top: 16px;
+}

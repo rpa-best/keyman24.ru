@@ -1,0 +1,39 @@
+@import "scss/utils";
+
+.form_layout {
+  width: 600px;
+  @include phoneOrTablet {
+    width: 78vw;
+  }
+  @include phone {
+    width: 100%;
+  }
+}
+
+.form_header {
+  @include MontserratSemiBold(32px);
+  color: white;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.register {
+  position: relative;
+}
+
+.form_sub_header {
+  @include MontserratSemiBold(22px);
+  color: white;
+  margin-bottom: 10px;
+}
+
+.form_button_wrapper {
+  @include fullHd {
+    width: 350px;
+  }
+  width: 80%;
+  @include phoneOrTablet {
+    width: 100%;
+  }
+  margin: 10px auto 0;
+}

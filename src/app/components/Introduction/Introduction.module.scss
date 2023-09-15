@@ -1,0 +1,239 @@
+@import "scss/utils";
+
+.intro_layout {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: max-content;
+
+  &:after {
+    @include fullHd {
+      height: calc(100%);
+    }
+    content: "";
+    width: calc(50% + 15px);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.03);
+    z-index: -1;
+    height: calc(100% - 100px);
+    backdrop-filter: blur(20px);
+    @include thousendWidth {
+      width: calc(50% + 40px);
+    }
+    @include phoneOrTablet {
+      display: none;
+    }
+  }
+}
+
+.intro_description_wrapper {
+  @include fullHd {
+    @include pcWidth();
+    height: 700px;
+    column-gap: 160px;
+  }
+  @include minPcWidth();
+  height: 630px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  column-gap: 80px;
+  @include thousendWidth {
+    column-gap: 30px;
+  }
+  @include phoneOrTablet {
+    @include tabletCenter;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column-reverse;
+    row-gap: 30px;
+  }
+}
+
+.desc_card_wrapper {
+  height: max-content;
+  width: calc(51% - 15px);
+  z-index: 1;
+  @include thousendWidth {
+    width: calc(55% - 15px);
+  }
+  @include phoneOrTablet {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+}
+
+.desc_card {
+  display: flex;
+  flex-direction: column;
+  padding: 40px 60px;
+  border-radius: 40px;
+  background-color: white;
+  border: 1px solid #E9E9E9;
+  box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.10);
+  @include thousendTwoWidth {
+    padding: 30px 50px;
+  }
+  @include thousendWidth {
+    padding: 25px 30px;
+  }
+  @include phone {
+    padding: 20px;
+  }
+}
+
+.desc_card_title {
+  @include fullHd {
+    font-size: 32px;
+  }
+  @include MontserratRegular(26px);
+  @include thousendTwoWidth {
+    font-size: 24px;
+  }
+  @include thousendWidth {
+    font-size: 22px;
+  }
+}
+
+.desc_card_text {
+  @include fullHd {
+    font-size: 20px;
+    margin-top: 35px;
+  }
+  @include MontserratRegular(18px);
+  @include thousendTwoWidth {
+    font-size: 16px;
+  }
+  margin-top: 25px;
+}
+
+.desc_card_actions {
+  @include fullHd {
+    margin-top: 50px;
+  }
+  margin-top: 35px;
+  display: flex;
+  justify-content: space-between;
+  column-gap: 25px;
+  @include thousendWidth {
+    flex-direction: column;
+    row-gap: 15px;
+  }
+  @include phoneOrTablet {
+    flex-direction: row;
+  }
+  @include phone {
+    flex-direction: column;
+    margin-top: 25px;
+  }
+}
+
+.desc_image {
+  min-height: 100%;
+  width: 100%;
+  background-color: black;
+  border-radius: 40px;
+}
+
+.desc_image_wrapper {
+  height: 100%;
+  width: calc(49% - 15px);
+  @include fullHd {
+    padding-top: 70px;
+  }
+  padding-top: 45px;
+  padding-left: 40px;
+  @include thousendWidth {
+    width: calc(45% - 15px);
+    padding-left: 30px;
+  }
+  @include phoneOrTablet {
+    width: 100%;
+    padding-top: 30px;
+    padding-left: 0;
+  }
+}
+
+.tags_layout {
+  @include fullHd {
+    @include pcWidth();
+    margin-top: 60px;
+    padding: 45px 100px;
+  }
+  @include minPcWidth();
+  margin-top: 40px;
+  padding: 35px;
+  background-color: $dark-main;
+  border-radius: 40px;
+  @include thousendWidth {
+    padding: 25px 15px;
+  }
+  @include phoneOrTablet {
+    padding: 20px 25px;
+  }
+  @include phoneOrTablet {
+    @include tabletCenter;
+  }
+}
+
+.tags {
+  display: flex;
+  justify-content: space-between;
+  @include thousendWidth {
+    flex-flow: row wrap;
+    justify-content: normal;
+    row-gap: 20px;
+  }
+  @include phoneOrTablet {
+    flex-direction: column;
+  }
+}
+
+.tag {
+  width: 25%;
+  min-width: 200px;
+  border-right: 2px solid white;
+  padding: 0 3%;
+
+  @include thousendWidth {
+    width: 50%;
+    border-right: none;
+    padding: 0 1%;
+  }
+
+  @include phoneOrTablet {
+    width: 100%
+  }
+
+  &:last-child {
+    border-right: none;
+  }
+}
+
+.button_wrapper {
+  min-width: 130px;
+  width: 100%;
+  height: 50px;
+  @include fullHd {
+    height: 55px;
+  }
+  padding: 0 10px;
+  border-radius: 8px;
+  border: 1px solid #D8D8D8;
+  background: #FFF;
+  transition: .2s all ease-in-out;
+  @include MontserratRegular(20px);
+  color: #A1A1A1;
+  cursor: pointer;
+  @include phoneOrTablet {
+    height: 43px;
+    font-size: 18px;
+  }
+  &:hover {
+    background-color: transparentize(black, 0.97);
+  }
+}

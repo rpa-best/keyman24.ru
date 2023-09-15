@@ -1,0 +1,262 @@
+$error-color: #C24040;
+$gray: #A1A1A1;
+$gray-semi: #C5C5C5;
+$white-semi: #E9E9E9;
+$dark-main: #2D2D2D;
+$additional-dark: #444;
+$border-gray: #5e5e5e;
+$accent-color: #31D79B;
+$accent-color-darker: #308D92;
+$accent-color-blue: #516FA5;
+
+
+
+@mixin center() {
+  width: calc(100% - 120px);
+  margin: 0 auto;
+}
+
+@mixin smallCenter() {
+  width: calc(100% - 60px);
+  margin: 0 auto;
+}
+
+@mixin tabletLayoutCenter() {
+  width: calc(100% - 20px);
+}
+
+@mixin tabletCenter() {
+  width: calc(100% - 30px);
+  margin: 0 auto;
+}
+
+@mixin pcWidth() {
+  max-width: 1680px;
+  @include center;
+}
+
+@mixin minPcWidth() {
+  max-width: 1400px;
+  @include smallCenter;
+}
+
+@mixin bigPcWidth() {
+  max-width: 1800px;
+  @include smallCenter;
+}
+
+@mixin minBigPcWidth() {
+  max-width: 1600px;
+  @include tabletCenter;
+}
+
+
+
+@mixin fullHd {
+  @media (min-width: 1600px) {
+    @content
+  }
+}
+
+@mixin laptopWidth {
+  @media (max-width: 1500px) {
+    @content
+  }
+}
+
+@mixin thousendTwoWidth() {
+  @media (max-width: 1200px) {
+    @content
+  }
+}
+
+@mixin thousendWidth() {
+  @media (max-width: 1000px) {
+    @content;
+  }
+}
+
+@mixin notTablet() {
+  @media (min-width: 769px) {
+    @content;
+  }
+}
+
+@mixin tablet() {
+  @media (min-width: 480px) and (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin phone() {
+  @media (max-width: 480px) {
+    @content;
+  }
+}
+
+@mixin phoneOrTablet() {
+  @media (max-width: 769px) {
+    @content;
+  }
+}
+
+@mixin bigtablet() {
+  @media (max-width: 989px) {
+    @content;
+  }
+}
+
+@mixin smallTablet() {
+  @media (max-width: 660px) {
+    @content;
+  }
+}
+
+@mixin MontserratBold($size) {
+  font-family: Montserrat-Regular, sans-serif;
+  font-size: $size;
+  letter-spacing: 1px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+@mixin MontserratSemiBold($size) {
+  font-family: Montserrat-Regular, sans-serif;
+  font-size: $size;
+  font-style: normal;
+  letter-spacing: 1px;
+  font-weight: 600;
+  line-height: normal;
+}
+
+@mixin MontserratMediumBold($size) {
+  font-family: Montserrat-Regular, sans-serif;
+  font-size: $size;
+  font-style: normal;
+  font-weight: 500;
+  letter-spacing: 1px;
+  line-height: normal;
+}
+
+@mixin MontserratRegular($size) {
+  font-family: Montserrat-Regular, sans-serif;
+  font-size: $size;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 1px;
+  line-height: normal;
+}
+
+.page_title {
+  width: 100%;
+  @include MontserratSemiBold(32px);
+  color: white;
+  padding-bottom: 35px;
+  @include thousendTwoWidth {
+    font-size: 28px;
+    padding-bottom: 25px;
+  }
+  @include phoneOrTablet {
+    font-size: 24px;
+    padding-bottom: 20px;
+  }
+  @include phone {
+    font-size: 22px;
+  }
+}
+
+.page_title_with_table {
+  @extend .page_title;
+  @include phoneOrTablet {
+    width: calc(100% - 40px);
+    margin: 20px auto 0;
+  }
+}
+
+.page_title_with_table_back_button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding-bottom: 35px;
+  @include thousendTwoWidth {
+    font-size: 28px;
+    padding-bottom: 25px;
+  }
+  @include phoneOrTablet {
+    width: calc(100% - 40px);
+    margin: 20px auto 0;
+    font-size: 24px;
+    padding-bottom: 20px;
+  }
+  @include phone {
+    font-size: 22px;
+  }
+  & h1 {
+    @include MontserratSemiBold(32px);
+    color: white;
+    @include thousendTwoWidth {
+      font-size: 28px;
+    }
+    @include phoneOrTablet {
+      font-size: 24px;
+    }
+    @include phone {
+      font-size: 22px;
+    }
+  }
+}
+
+.children {
+  width: calc(100% - 90px);
+  margin: 40px auto 0 auto;
+  @include thousendWidth {
+    width: calc(100% - 50px);
+    margin-top: 30px;
+  }
+  @include phoneOrTablet {
+    width: calc(100% - 40px);
+    margin-top: 20px;
+  }
+}
+
+.children_with_table {
+  width: calc(100% - 90px);
+  margin: 40px auto 0 auto;
+  @include thousendWidth {
+    width: calc(100% - 50px);
+    margin-top: 30px;
+  }
+  @include phoneOrTablet {
+    width: 100%;
+    margin-right: 0;
+    margin-left: 0;
+  }
+}
+
+.svg {
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  min-height: 24px;
+  color: $gray;
+  transition: .3s all ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    color: white;
+  }
+  @include thousendWidth {
+    width: 22px;
+    height: 22px;
+  }
+  @include phoneOrTablet {
+    width: 20px;
+    height: 20px;
+  }
+  @include phone {
+    height: 18px;
+    width: 18px;
+  }
+}

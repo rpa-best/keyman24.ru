@@ -1,0 +1,136 @@
+@import "scss/utils";
+
+.input_big {
+  @extend .input;
+  height: 70px!important;
+}
+
+.input {
+  width: 100%;
+  min-height: 45px;
+  border-radius: 10px;
+  outline: none;
+  border: 2px solid transparent;
+  @include MontserratRegular(19px);
+  letter-spacing: 1px;
+  padding: 0 20px;
+  background-color: #f5f6f7;
+  transition: .2s all ease-in-out;
+
+  @include laptopWidth {
+    font-size: 16px;
+  }
+
+  @include phone {
+    min-height: 40px;
+    width: 100%;
+    border-radius: 7px;
+    font-size: 14px;
+  }
+  &:hover {
+    border: 2px solid $gray;
+    transition: .1s all ease-in-out;
+  }
+  &:focus {
+    border: 2px solid $accent-color;
+    transition: .1s all ease-in-out;
+  }
+  &:disabled {
+    color: black;
+    pointer-events: none;
+  }
+  &::-webkit-inner-spin-button {
+    display: none;
+  }
+}
+
+
+.input_arrow_svg {
+  position: absolute;
+  top: calc(50% - 8px);
+  right: 15px;
+  transition: .2s all ease-in-out;
+  @extend .svg;
+  &:hover {
+    color: $gray;
+  }
+}
+
+.input_arrow_svg_open {
+  transform: rotate(180deg);
+  top: calc(50% - 12px);
+  right: 18px;
+}
+
+.input_error {
+  background: rgba(0, 0, 0, 0.30);
+  color: red;
+  border: 2px solid $error-color;
+  &:focus {
+    border: 2px solid $error-color;
+  }
+}
+
+.field_noneed {
+  height: max-content!important;
+  margin-top: 0!important;
+}
+
+.field_with_label_big {
+  @extend .field;
+  height: 115px!important;
+  margin-top: 0!important;
+  justify-content: flex-start!important;
+}
+
+.field_big {
+  @extend .field;
+  height: 95px!important;
+  margin-top: 15px;
+}
+
+.field_with_label {
+  @extend .field;
+  height: 90px!important;
+  margin-top: 0!important;
+  justify-content: flex-start!important;
+  @include phone {
+    height: 80px!important;
+  }
+}
+
+.field {
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-width: 80px;
+  width: 100%;
+  margin-top: 15px;
+  @include phone {
+    height: 50px;
+    margin-top: 15px;
+  }
+}
+
+.input_label {
+  width: 100%;
+  color: $gray;
+  font-size: 16px;
+  margin-bottom: 5px;
+  line-height: 20px;
+  text-align: left;
+}
+
+.input_error_label {
+  width: 100%;
+  color: $error-color;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: left;
+}
+
+.input_error_label_hidden {
+  @extend .input_error_label
+}
+

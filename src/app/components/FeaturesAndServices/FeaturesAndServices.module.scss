@@ -1,0 +1,167 @@
+@import "scss/utils";
+
+.features_layout {
+  background-color: #F4F4F4;
+  @include fullHd {
+    @include bigPcWidth;
+    margin-top: 40px;
+    padding: 60px 120px;
+  }
+  padding: 60px 80px;
+  border-radius: 40px;
+  @include minBigPcWidth;
+  margin-top: 40px;
+  @include thousendTwoWidth {
+    padding: 50px 60px;
+  }
+  @include thousendWidth {
+    padding: 30px 40px;
+  }
+  @include phoneOrTablet {
+    padding: 25px;
+  }
+}
+
+.features {
+  display: flex;
+  justify-content: space-between;
+  column-gap: 20px;
+  @include phoneOrTablet {
+    flex-direction: column-reverse;
+    row-gap: 20px;
+  }
+}
+
+.features_description {
+  @include fullHd {
+    padding-top: 60px;
+    width: 38%;
+  }
+  padding-top: 40px;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  @include thousendTwoWidth {
+    width: 45%;
+  }
+  @include thousendWidth {
+    width: calc(50% - 20px);
+  }
+  @include phoneOrTablet {
+    width: 100%;
+  }
+}
+
+.features_description_title {
+  @include MontserratSemiBold(36px);
+  margin-bottom: 10px;
+  line-height: 52px;
+  @include thousendTwoWidth {
+    font-size: 32px;
+  }
+  @include thousendWidth {
+    font-size: 28px;
+  }
+  @include phoneOrTablet {
+    line-height: 45px;
+  }
+  @include phone {
+    line-height: 38px;
+    font-size: 24px;
+  }
+}
+
+.features_description_text {
+  @include MontserratRegular(18px);
+  color: rgba(35, 35, 35, 0.70);
+  line-height: 30px;
+  @include thousendWidth {
+    font-size: 16px;
+  }
+}
+
+.features_list {
+  display: flex;
+  flex-direction: column;
+  margin: 32px 0;
+  row-gap: 20px;
+}
+.features_list_item {
+  display: flex;
+  align-items: center;
+  @include MontserratRegular(20px);
+  @include thousendTwoWidth {
+    font-size: 18px;
+  }
+  @include thousendWidth {
+    font-size: 16px;
+  }
+  color: #232323;
+}
+
+.button_wrapper {
+  width: 80%;
+  margin-top: 30px;
+  @include thousendTwoWidth {
+    width: 90%;
+  }
+  @include thousendWidth {
+    width: 100%;
+    margin-top: 10px;
+  }
+  @include phoneOrTablet {
+    width: 80%;
+    margin-right: auto;
+  }
+  @include phone {
+    width: 100%;
+  }
+}
+
+.done_svg_wrapper {
+  min-width: 36px;
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid #787878;
+  background: #F4F4F4;
+  margin-right: 16px;
+  &:hover {
+    pointer-events: none;
+  }
+  @include phone {
+    min-width: 30px;
+    min-height: 30px;
+  }
+}
+
+.active_svg {
+  @extend .done_svg_wrapper;
+  border: 1px solid #31D7B9;
+  background: #4D9588;
+  & .done_svg {
+    color: #85EFAC;
+  }
+}
+
+.done_svg {
+  @extend .svg;
+  pointer-events: none;
+}
+
+.img_wrapper {
+  width: 55%;
+  min-height: 500px;
+  border-radius: 40px;
+  background-color: black;
+  @include thousendTwoWidth {
+    width: calc(50% - 20px);
+  }
+  @include phoneOrTablet {
+    min-height: 350px;
+    width: 100%;
+  }
+}

@@ -1,0 +1,63 @@
+@import "scss/utils";
+
+
+.header_layout {
+  background-color: $dark-main;
+}
+
+.header_wrapper {
+  @include fullHd {
+    @include pcWidth()
+  }
+  @include minPcWidth();
+  padding: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  @include phoneOrTablet {
+    @include tabletCenter;
+  }
+}
+
+.header_title {
+  @include MontserratSemiBold(24px);
+  color: white;
+}
+
+.button_wrapper {
+  min-width: 250px;
+  @include phoneOrTablet {
+    min-width: 150px;
+  }
+}
+
+.footer_layout {
+  @extend .header_layout;
+  padding: 32px 0 20px;
+  @include phoneOrTablet {
+    padding: 25px 0 15px;
+  }
+}
+
+.footer_wrapper {
+  @extend .header_wrapper;
+  border-top: 1px solid #434343;
+  padding: 30px 0;
+  @include phoneOrTablet {
+    padding: 20px 0 10px;
+  }
+}
+
+.footer_title {
+  @extend .header_title;
+}
+
+.footer_span {
+  color: rgba(255, 255, 255, 0.50);
+  text-align: right;
+  font-family: Inter, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px; /* 150% */
+}

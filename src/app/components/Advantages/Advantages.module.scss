@@ -1,0 +1,112 @@
+@import "scss/utils";
+
+.main_adv_wrapper {
+  display: flex;
+  @include fullHd {
+    @include pcWidth;
+    padding-top: 105px;
+  }
+  @include minPcWidth;
+  padding-top: 60px;
+  @include phoneOrTablet {
+    @include tabletCenter;
+    padding-top: 40px;
+  }
+  @include phone {
+    padding-top: 30px;
+  }
+  background: white;
+}
+
+.main_adv_content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+}
+
+.main_adv_header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  @include MontserratSemiBold(32px);
+    margin-bottom: 56px;
+  @include phoneOrTablet {
+    margin-bottom: 45px;
+    font-size: 28px;
+  }
+  @include phone {
+    font-size: 24px;
+    margin-bottom: 30px;
+  }
+}
+
+.advs {
+  display: flex;
+  justify-content: space-between;
+  column-gap: 20px;
+  row-gap: 30px;
+  width: 100%;
+  @include thousendWidth {
+    flex-flow: row wrap;
+  }
+  @include phone {
+    flex-direction: column;
+    row-gap: 20px;
+  }
+}
+
+.adv_wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  max-width: 282px;
+  height: 100%;
+  @include thousendWidth {
+    width: 50%;
+    max-width: 320px
+  }
+  @include phoneOrTablet {
+    max-width: calc(50% - 20px);
+  }
+  @include phone {
+    width: 100%;
+    max-width: 280px;
+  }
+  svg {
+    width: 52px;
+    height: 52px;
+  }
+  h5 {
+    @include fullHd {
+      @include MontserratBold(20px);
+    }
+   font-size: 18px;
+    @include thousendWidth {
+      font-size: 20px;
+    }
+    @include phoneOrTablet {
+      font-size: 18px;
+    }
+    color: #2d2d2d;
+    margin-top: 16px;
+    margin-bottom: 12px;
+  }
+  p {
+    @include fullHd {
+      @include MontserratRegular(18px);
+    }
+    font-size: 16px;
+    @include thousendWidth {
+      font-size: 18px;
+    }
+    @include phoneOrTablet {
+      font-size: 16px;
+    }
+    line-height: 30px;
+    color: rgba(45, 45, 45, 0.7);
+  }
+}

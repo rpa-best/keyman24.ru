@@ -1,0 +1,63 @@
+@import "scss/utils";
+
+.default {
+  cursor: pointer;
+  transition: .2s background-color ease-in-out;
+  &:hover {
+    background-color: #2BBB86;
+  }
+  &:active {
+    background-color: #25A476;
+  }
+}
+
+.button {
+  @extend .default;
+  min-width: 130px;
+  width: 100%;
+  height: 45px;
+  color: white;
+  padding: 0 10px;
+  border-radius: 12px;
+  background-color: $accent-color;
+  font-family: Inter, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  @include phoneOrTablet {
+    @include phoneOrTablet {
+      height: 40px;
+      font-size: 18px;
+    }
+  }
+}
+
+.button_secondary {
+  @extend .button;
+  background-color: $additional-dark;
+}
+
+.button_rect {
+  @extend .default;
+  min-width: 130px;
+  width: 100%;
+  height: 50px;
+  @include fullHd {
+    height: 55px;
+  }
+  padding: 0 10px;
+  border-radius: 8px;
+  @include MontserratRegular(20px);
+  color: white;
+  background-color: $accent-color;
+  @include phoneOrTablet {
+    height: 43px;
+    font-size: 18px;
+  }
+}
+
+.button_rect_secondary {
+  @extend .button_rect_secondary;
+  background-color: $additional-dark;
+}
