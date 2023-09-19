@@ -1,0 +1,59 @@
+@import "scss/utils";
+
+.circle {
+  position: absolute;
+  background: linear-gradient(90deg, #31d79b  0%, #516fa5 100%);
+  transform: rotate(-43.69deg);
+  border-radius: 50%;
+  &:nth-child(2) {
+    z-index: -1;
+    @include fullHd {
+      width: 132px;
+      height: 132px;
+      top: 12%;
+      left: 88%;
+    }
+    height: 90px;
+    width: 90px;
+    top: 13%;
+    left: 85%;
+    @include phoneOrTablet {
+      left: 76%;
+    }
+    @include phone {
+      left: 70%;
+    }
+  }
+  &:nth-child(3) {
+    width: 100px;
+    height: 100px;
+    @include fullHd {
+      left: 4%;
+    }
+    left: 1%;
+    top: 25%;
+    z-index: -1;
+    @include phone {
+      width: 75px;
+      height: 75px;
+      left: 0;
+      top: 49%;
+    }
+
+  }
+  &:nth-child(4) {
+    width: 100px;
+    height: 100px;
+    @include fullHd {
+      top: 75%;
+      left: 38%;
+    }
+    left: 45%;
+    top: 95%;
+    z-index: -1;
+    @include phone {
+      display: none;
+    }
+  }
+}
+

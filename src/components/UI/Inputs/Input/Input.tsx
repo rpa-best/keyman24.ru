@@ -11,7 +11,7 @@ export const Input: React.FC<T.IInputProps> = ({
     autoFocus,
     value,
     name,
-
+    theme = 'dark',
     handleError,
     onChange,
     onBlur,
@@ -24,6 +24,8 @@ export const Input: React.FC<T.IInputProps> = ({
     size = 'medium',
     needErrorLabel = true,
 }) => {
+    const darkTheme = theme === 'dark';
+
     const fieldClass = clsx({
         [scss.field_noneed]: !needErrorLabel,
         [scss.field]: size === 'medium' && !label,
@@ -38,15 +40,17 @@ export const Input: React.FC<T.IInputProps> = ({
     });
 
     const labelClass = clsx({
-        [scss.input_label]: true,
+        [scss.input_label]: darkTheme,
+        [scss.input_label_light]: !darkTheme,
     });
 
     const inputClass = clsx({
-        [scss.input]: size === 'medium',
-
-        [scss.input_big]: size === 'big',
-
-        [scss.input_error]: handleError,
+        [scss.input]: size === 'medium' && darkTheme,
+        [scss.input_big]: size === 'big' && darkTheme,
+        [scss.input_light]: size === 'medium' && !darkTheme,
+        [scss.input_big_light]: size === 'big' && !darkTheme,
+        [scss.input_error]: handleError && darkTheme,
+        [scss.input_error_light]: handleError && !darkTheme,
     });
 
     return (

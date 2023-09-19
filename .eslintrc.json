@@ -14,11 +14,9 @@
     "plugin:@typescript-eslint/recommended",
     "next",
     "prettier",
-    "next/core-web-vitals",
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:react/recommended",
-    "plugin:@next/next/recommended"
+    "plugin:react/recommended"
   ],
   "root": true
 }

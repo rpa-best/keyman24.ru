@@ -12,13 +12,8 @@ interface IServiceRate {
 }
 
 export interface IService {
-    id: number;
-    serviceRates: IServiceRate[];
-    slug: string;
     name: string;
-    desc: string | null;
-    image: string;
-    price: number;
+    modelName: string;
 }
 
 export interface CreateAccBody {
@@ -27,10 +22,16 @@ export interface CreateAccBody {
     password: string;
 }
 
+export interface IRate {
+    key: string;
+    value: number;
+    not_limited: boolean;
+}
+
 export interface CreateReqBody {
-    phone: string;
-    service: string;
-    desc: string;
+    user: string;
+    org: string;
+    rates: IRate[];
 }
 
 export type GetServices = () => Promise<IService[]>;

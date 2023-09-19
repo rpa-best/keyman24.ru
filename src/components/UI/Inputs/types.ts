@@ -8,6 +8,7 @@ export interface IInputProps {
     handleError?: string | undefined | boolean;
     type?: HTMLInputElement['type'];
     size?: 'big' | 'medium';
+    theme: 'light' | 'dark';
     errorFontColor?: string;
     onBlur?: (
         event: FocusEvent<HTMLInputElement> | FocusEvent<HTMLTextAreaElement>
@@ -26,7 +27,7 @@ export interface IInputProps {
 
 export interface ListProps {
     list: { id: number; name: string }[];
-    handleSetData: (id: number, name: string) => void;
+    handleSetData: (id: number) => void;
     opacity: MotionValue<string>;
 }
 
@@ -34,4 +35,13 @@ export interface IInputSelectProps extends Omit<IInputProps, 'onChange'> {
     listValues: { id: number; name: string }[];
     onChange: (item: any) => void;
     setFieldTouched?: (field: string, value: boolean) => void;
+}
+
+export interface IRangeInputProps {
+    name: string;
+    value: string;
+    theme?: 'light' | 'dark';
+    onChange: (v: string) => void;
+    min: string;
+    max: string;
 }

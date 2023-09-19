@@ -1,14 +1,12 @@
 import { IService } from 'http/types';
 
 export interface FormProps {
-    subs: IService[];
-    selectedSub?: IService;
+    services: IService[];
 }
 
 export interface FormValues {
-    sub: IService | null;
-    desc: string;
+    inn: string;
     phone: string;
-    login: string;
+    email: string;
     password: string;
 }

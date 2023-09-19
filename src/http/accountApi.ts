@@ -6,5 +6,5 @@ export const createAccount: T.CreateAccount = async (body) => {
 };
 
 export const createRequest: T.CreateRequest = async (body) => {
-    await $clientAuth.post('account/request-subscription/', body);
+    await $clientAuth.post('account/service-request/', body);
 };

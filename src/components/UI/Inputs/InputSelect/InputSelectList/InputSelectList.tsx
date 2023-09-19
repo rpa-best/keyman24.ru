@@ -1,14 +1,9 @@
 import React from 'react';
 
-import { motion, MotionValue } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { ListProps } from 'components/UI/Inputs/types';
 
 import scss from '../InputSelect.module.scss';
-
-interface ListProps {
-    list: { id: number; name: string }[];
-    handleSetData: (id: number) => void;
-    opacity: MotionValue<string>;
-}
 
 export const InputSelectList: React.FC<ListProps> = ({
     list,

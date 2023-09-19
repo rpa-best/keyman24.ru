@@ -1,13 +1,13 @@
 'use client';
 
 import { Button } from 'components/UI/Button';
-import { useModalStore } from 'store/modalVisibleStore';
+import { useRouter } from 'next/navigation';
 
 export const ButtonWrapper = () => {
-    const [setVisible] = useModalStore((state) => [state.setVisible]);
+    const router = useRouter();
 
     return (
-        <Button as="rect" onClick={() => setVisible(true)}>
+        <Button as="rect" onClick={() => router.push('/register')}>
             Регистрация
         </Button>
     );

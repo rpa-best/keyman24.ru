@@ -5,6 +5,11 @@
   height: 70px!important;
 }
 
+.input_big_light {
+  @extend .input_big;
+  border: 2px solid $gray-semi;
+}
+
 .input {
   width: 100%;
   min-height: 45px;
@@ -44,6 +49,11 @@
   }
 }
 
+.input_light {
+  @extend .input;
+  border: 2px solid $gray-semi;
+}
+
 
 .input_arrow_svg {
   position: absolute;
@@ -64,11 +74,16 @@
 
 .input_error {
   background: rgba(0, 0, 0, 0.30);
-  color: red;
+  color: $error-color;
   border: 2px solid $error-color;
   &:focus {
     border: 2px solid $error-color;
   }
+}
+
+.input_error_light {
+  @extend .input_error;
+  background: white;
 }
 
 .field_noneed {
@@ -122,12 +137,22 @@
   text-align: left;
 }
 
+.input_label_light {
+  @extend .input_label;
+  color: black;
+}
+
 .input_error_label {
   width: 100%;
   color: $error-color;
   font-size: 14px;
   line-height: 20px;
   text-align: left;
+  white-space: nowrap;
+  @include phone {
+    white-space: normal;
+    text-align: right;
+  }
 }
 
 .input_error_label_hidden {

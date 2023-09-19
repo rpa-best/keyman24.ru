@@ -21,8 +21,6 @@ export default function RootLayout({
 }: {
     children: React.ReactNode;
 }) {
-    const buttonClick = () => {};
-
     return (
         <html lang="en">
             <body className={montserrat.className}>

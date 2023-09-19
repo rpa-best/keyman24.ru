@@ -51,78 +51,42 @@
 
 .subs {
   z-index: 1;
-  display: flex;
-  column-gap: 20px;
-  @include thousendTwoWidth {
-    & .variant {
-      max-width: calc(33% - 20px);
-    }
-    flex-flow: row wrap;
-  }
-  @include thousendTwoWidth {
-    & .variant {
-      max-width: calc(50% - 20px);
-    }
-    flex-flow: row wrap;
-  }
-  @include phoneOrTablet {
-    & .variant {
-      max-width: 100%;
-    }
-  }
+
 }
 
-.variant_selected {
-  @extend .variant;
-  background-color: #134038!important;
-  & {
-    .button {
-      background-color: $accent-color;
-    }
-    .card_svg {
-      color: #31D7B9;
-    }
-
-    .card_svg_wrapper {
-      background: transparent;
-      border-color: #31D7B9;
-    }
-  }
-}
-
-.variant {
+.service_constructor {
   @include fullHd {
-    padding: 20px 32px 32px;
-    max-width: 420px;
+    display: flex;
+    flex-flow: row wrap;
+    column-gap: 30px;
+    row-gap: 20px;
+    & .range_wrapper {
+      width: calc(50% - 30px);
+    }
   }
-  width: 100%;
   display: flex;
-  flex-direction: column;
-  align-self: start;
-  break-inside: avoid-column;
+  flex-flow: row wrap;
+  column-gap: 30px;
+  row-gap: 20px;
+  width: 100%;
   background: rgba(255, 255, 255, 0.01);
   border: 2px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 1px 1px rgba(18, 18, 18, 0.3);
   backdrop-filter: blur(30px);
   border-radius: 12px;
   padding: 18px 26px 30px;
-  cursor: pointer;
   transition: .2s all ease-in-out;
   margin-bottom: 20px;
-
-  &:hover {
-    background: #134038;
-    .button {
-      background-color: $accent-color;
-    }
-    .card_svg {
-      color: #31D7B9;
-    }
-
-    .card_svg_wrapper {
-      background: transparent;
-      border-color: #31D7B9;
-    }
+  @include thousendWidth {
+    flex-direction: column;
+    row-gap: 5px;
+    padding: 15px 20px;
+    box-shadow: none;
+    background-color: transparent;
+  }
+  @include phone {
+    padding: 0 10px;
+    border: none;
   }
 }
 
@@ -142,10 +106,11 @@
   }
 }
 
-.var_price {
-  @include MontserratRegular(18px);
-  color: rgba(255, 255, 255, 0.7);
-  margin-bottom: 10px;
+.range_wrapper {
+  width: calc(50% - 30px);
+  @include thousendWidth {
+    width: 100%;
+  }
 }
 
 .price {
@@ -231,8 +196,17 @@
     height: 43px;
     font-size: 18px;
   }
+  &:hover {
+    background-color: $accent-color;
+    border-color: transparent;
+  }
 }
 
 .button_wrapper {
+  width: 50%;
  padding-top: 16px;
+  margin: 0 auto;
+  @include phoneOrTablet {
+    width: 100%;
+  }
 }
