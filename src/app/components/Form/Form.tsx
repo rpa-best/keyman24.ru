@@ -10,18 +10,58 @@ import { Button } from 'components/UI/Button';
 import { RangeSlider } from 'components/UI/Inputs/RangeSlider';
 import { useConstructorStore } from 'store/useConstructorStore';
 import { FormCircles } from 'app/components/Form/FormCircles';
+import { usePrice } from 'helpers/usePrice';
+import { useModalStore } from 'store/modalVisibleStore';
+import { Modal } from 'components/Modal';
+import { ConfirmModal } from 'app/components/Form/ConfirmModal';
+import { Spinner } from 'components/Spinner';
 
 import scss from './Form.module.scss';
 
 export const Form: React.FC<FormProps> = ({ services }) => {
+    const [loading, setLoading] = useState(false);
+    const [alreadyRegistered, setAlreadyRegistered] = useState(false);
+    const [setVisible] = useModalStore((state) => [state.setVisible]);
     const [fields] = useConstructorStore((state) => [state.fields]);
     const [setFields] = useConstructorStore((state) => [state.setFields]);
     const [page, setPage] = useState(1);
 
+    const price = usePrice(fields, 200);
+
+    const submit = async (values: FormValues) => {
+        setLoading(true);
+        onSubmit(
+            values,
+            errors,
+            fields,
+            setPage,
+            alreadyRegistered,
+            setAlreadyRegistered
+        )
+            .then(() => {
+                setTimeout(() => setVisible(true), 1500);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+    };
+
     useEffect(() => {
-        if (fields.length === 0) {
+        const data = localStorage.getItem('constructor');
+        const parsedConstructor = JSON.parse(data as string);
+
+        if (parsedConstructor?.length !== 0) {
+            setFields(parsedConstructor);
+        } else {
             setFields(
-                services.map((item) => ({ name: item.name, count: '0' }))
+                services.map((item, index) => ({
+                    id: index,
+                    name: item.name,
+                    count: item.defaultValue.toString(),
+                    max: item.maxValue.toString(),
+                    slug: item.modelName,
+                    notLimited: false,
+                }))
             );
         }
     }, [fields.length, services, setFields]);
@@ -43,9 +83,7 @@ export const Form: React.FC<FormProps> = ({ services }) => {
             phone: '',
         },
         enableReinitialize: true,
-        onSubmit: (values) => {
-            onSubmit(values, errors, fields, setPage);
-        },
+        onSubmit: submit,
         validate: FormValidate,
     });
 
@@ -68,6 +106,7 @@ export const Form: React.FC<FormProps> = ({ services }) => {
         const updatedValues = [...fields];
         updatedValues[index].count = value;
         setFields(updatedValues);
+        localStorage.setItem('constructor', JSON.stringify(updatedValues));
     };
 
     if (fields.length === 0) {
@@ -170,12 +209,16 @@ export const Form: React.FC<FormProps> = ({ services }) => {
                                         className={scss.range_wrapper}
                                     >
                                         <RangeSlider
-                                            theme="light"
                                             key={index}
                                             name={item.name}
+                                            check={item.notLimited}
                                             value={item.count}
                                             min="0"
-                                            max="1000"
+                                            max={item.max}
+                                            theme="light"
+                                            fields={fields}
+                                            index={item.id.toString()}
+                                            setFields={setFields}
                                             onChange={(count) =>
                                                 handleInputChange(index, count)
                                             }
@@ -183,20 +226,30 @@ export const Form: React.FC<FormProps> = ({ services }) => {
                                     </div>
                                 ))}
                             </div>
-                            <div className={scss.form_button_wrapper}>
-                                <Button
-                                    onClick={() => handleChanePage()}
-                                    type="submit"
-                                    as="rect"
-                                >
-                                    Отправить
-                                </Button>
+                            <div className={scss.form_actions}>
+                                <div className={scss.form_button_wrapper}>
+                                    <Button
+                                        onClick={() => handleChanePage()}
+                                        type="submit"
+                                        as="rect"
+                                    >
+                                        Отправить
+                                    </Button>
+                                </div>
+                                <h2 className={scss.price_wrapper}>
+                                    <span className={scss.price}>{price}₽</span>{' '}
+                                    / за месяц
+                                </h2>
                             </div>
                         </>
                     )}
                 </form>
                 <div className={scss.image}></div>
             </div>
+            {loading && <Spinner />}
+            <Modal preventClickOutside>
+                <ConfirmModal delay={7} />
+            </Modal>
         </>
     );
 };

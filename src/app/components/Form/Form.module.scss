@@ -80,11 +80,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  column-gap: 10px;
 }
 
 .title_pages {
   @include MontserratRegular(16px);
   color: $border-gray;
+  white-space: nowrap;
 }
 
 .register {
@@ -118,15 +120,49 @@
 }
 
 .form_button_wrapper {
+  display: flex;
+  align-items: center;
   @include fullHd {
     width: 350px;
   }
-  margin-top: 20px;
   width: 50%;
-  @include phoneOrTablet {
+  @include phone {
     width: 100%;
   }
-  margin-right: auto;
+}
+
+.form_actions {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  @include phoneOrTablet {
+    column-gap: 20px;
+  }
+  @include phone {
+    padding-top: 20px;
+    flex-direction: column-reverse;
+    row-gap: 30px;
+  }
+}
+
+.price_wrapper {
+  @include MontserratRegular(18px);
+  color: $border-gray;
+  white-space: nowrap;
+  @include phone {
+    width: 100%;
+  }
+}
+
+.price {
+  @include MontserratSemiBold(24px);
+  border-radius: 10px;
+  padding: 10px;
+  color: white;
+  background-color: $additional-dark;
+  box-shadow: 0 0 10px 0.2rem #67FFC7
 }
 
 .sliders_wrapper {
@@ -134,6 +170,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+  row-gap: 15px;
   & .range_wrapper {
     width: 100%;
   }

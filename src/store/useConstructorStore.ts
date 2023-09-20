@@ -1,8 +1,17 @@
 import { create } from 'zustand';
 
+export interface IField {
+    id: number;
+    name: string;
+    slug: string;
+    count: string;
+    max: string;
+    notLimited: boolean;
+}
+
 export interface IConstructorStore {
-    fields: { name: string; count: string }[];
-    setFields: (v: { name: string; count: string }[]) => void;
+    fields: IField[];
+    setFields: (v: IField[]) => void;
 }
 
 export const useConstructorStore = create<IConstructorStore>((set) => ({

@@ -16,7 +16,7 @@
       top: 80%;
     }
     left: 1%;
-    top: 79%;
+    top: 60%;
     z-index: 0;
     @include thousendTwoWidth {
       left: 1%;
@@ -29,15 +29,15 @@
     @include fullHd {
       top: 10%;
     }
-    top: 5%;
-    left: 81%;
+    top: 15%;
+    left: 65%;
     z-index: 0;
   }
   &:nth-child(3) {
     width: 132px;
     height: 132px;
-    left: 68%;
-    top: 80%;
+    left: 90%;
+    top: 66%;
     z-index: 0;
     @include thousendTwoWidth {
       left: 80%;

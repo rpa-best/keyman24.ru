@@ -1,0 +1,75 @@
+@import "scss/utils";
+
+.modal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 30px;
+  @include phone {
+    padding: 20px;
+  }
+}
+
+.modal_text {
+  @include MontserratRegular(18px);
+  color: white;
+}
+
+.buttons_wrapper {
+  display: flex;
+  justify-content: space-between;
+  column-gap: 10px;
+}
+
+.button_default {
+  width: calc(50% - 5px);
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: .2s all ease-in-out;
+  will-change: transform;
+  @include phone {
+    padding: 7px 5px;
+  }
+}
+
+.yes_button {
+  @extend .button_default;
+  background-color: #22C55E;
+  color: white;
+  &:hover {
+    background-color: #26DE6A;
+    scale: 1.01;
+  }
+}
+
+.no_button {
+  @extend .button_default;
+  background-color: #EF4444;
+  color: white;
+  &:hover {
+      background-color: #FF4949;
+    scale: 1.01;
+  }
+}
+
+.modal_line {
+  height: 5px;
+  width: 100%;
+  position: absolute;
+  background-color: $accent-color;
+  bottom: -1px;
+  right: 1px;
+  left: 1px;
+  border-bottom-left-radius: 10px;
+  animation: roundtime linear;
+  transform-origin: left center;
+}
+
+@keyframes roundtime {
+  to {
+    /* More performant than animating `width` */
+    transform: scaleX(0);
+  }
+}

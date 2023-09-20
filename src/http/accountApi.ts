@@ -1,10 +1,43 @@
 import * as T from 'http/types';
 import { $clientAuth } from 'http/clientIndex';
 
+import CookiesUniversal from 'universal-cookie';
+
+const cookie = new CookiesUniversal();
+
 export const createAccount: T.CreateAccount = async (body) => {
-    await $clientAuth.post('account/create/', body);
+    const res = await $clientAuth.post('account/create/', body);
+
+    $clientAuth.interceptors.request.use((req) => {
+        req.headers.set('Authorization', `Bearer ${res.data.access}`);
+
+        return req;
+    });
+
+    return res.data;
+};
+
+export const authAccount: T.AuthAccount = async (body) => {
+    const res = await $clientAuth.post(
+        'account/auth/?login_params=username_password',
+        body
+    );
+
+    $clientAuth.interceptors.request.use((req) => {
+        req.headers.set('Authorization', `Bearer ${res.data.access}`);
+
+        return req;
+    });
+
+    return res.data;
 };
 
 export const createRequest: T.CreateRequest = async (body) => {
-    await $clientAuth.post('account/service-request/', body);
+    const access = cookie.get('access');
+
+    await $clientAuth.post('account/service-request/', body, {
+        headers: {
+            Authorization: `Bearer ${access}`,
+        },
+    });
 };
