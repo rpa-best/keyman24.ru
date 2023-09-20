@@ -1,8 +1,8 @@
 version: '3.3'
 
 services:  
-  business-keyman:
-    container_name: business-keyman
+  keyman:
+    container_name: keyman
     build: .
     env_file:
       - ./.env
