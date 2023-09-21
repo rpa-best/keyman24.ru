@@ -1,10 +1,13 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import clsx from 'clsx';
+
 import { IRangeInputProps } from 'components/UI/Inputs/types';
+import { InputCheckbox } from 'components/UI/Inputs/InputCheckbox/InputCheckbox';
 
 import scss from './RangeSlider.module.scss';
-import clsx from 'clsx';
 
 export const RangeSlider: React.FC<IRangeInputProps> = ({
     min,
@@ -13,13 +16,28 @@ export const RangeSlider: React.FC<IRangeInputProps> = ({
     max,
     theme = 'dark',
     onChange,
+    check,
+    fields,
+    index,
+    setFields,
 }) => {
+    const [checked, setChecked] = useState(check);
     const inputRef = useRef<HTMLInputElement>(null);
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const progress = (+e.target.value / +max) * 100;
         onChange(e.target.value);
         if (inputRef.current) {
             inputRef.current.style.backgroundImage = `linear-gradient(to right, #31D79B ${progress}%, #ccc ${progress}%)`;
+        }
+    };
+
+    const handleCheckBox = (check: boolean) => {
+        setChecked(check);
+        if (fields && setFields && index) {
+            const updatedValues = [...fields];
+            updatedValues[+index].notLimited = check;
+            setFields(updatedValues);
+            localStorage.setItem('constructor', JSON.stringify(updatedValues));
         }
     };
 
@@ -39,7 +57,7 @@ export const RangeSlider: React.FC<IRangeInputProps> = ({
         if (inputRef.current) {
             inputRef.current.style.backgroundImage = `linear-gradient(to right, #31D79B ${progress}%, #ccc ${progress}%)`;
         }
-    }, [value]);
+    }, [max, value, checked]);
 
     const titleClass = clsx({
         [scss.input_title]: theme === 'dark',
@@ -53,33 +71,56 @@ export const RangeSlider: React.FC<IRangeInputProps> = ({
 
     return (
         <div className={scss.range_wrapper}>
-            <div className={scss.input_range_wrapper}>
-                <p className={scss.min}>{min}</p>
+            <motion.div
+                initial={{ height: '80px' }}
+                animate={{ height: checked ? '40px' : '60px' }}
+                className={scss.input_range_wrapper}
+            >
                 <div className={scss.input_range_wrapper}>
-                    <p className={titleClass}>{name}</p>
-                    {min && <p className={scss.min}>{min}</p>}
-                    <input
-                        ref={inputRef}
-                        className={scss.input_range}
-                        value={value}
-                        min={min}
-                        max={max}
-                        onChange={handleInputChange}
-                        type="range"
-                    />
-                    {max && <p className={scss.max}>{max}</p>}
+                    <div className={scss.input_range_title}>
+                        <p className={titleClass}>{name}</p>
+                        <InputCheckbox
+                            theme={theme}
+                            name="limited"
+                            label="Безлимит"
+                            value={checked}
+                            type="checkbox"
+                            onChange={handleCheckBox}
+                        />
+                    </div>
+                    <AnimatePresence mode="wait">
+                        {!checked && (
+                            <motion.div
+                                initial={{ opacity: 1, height: '50px' }}
+                                animate={{ opacity: 1, height: '50px' }}
+                                exit={{ opacity: 0, height: 0 }}
+                                className={scss.inputs_wrapper}
+                            >
+                                <div className={scss.input_range_wrapper}>
+                                    {min && <p className={scss.min}>{min}</p>}
+                                    <input
+                                        ref={inputRef}
+                                        className={scss.input_range}
+                                        value={value}
+                                        min={min}
+                                        max={max}
+                                        onChange={handleInputChange}
+                                        type="range"
+                                    />
+                                    {max && <p className={scss.max}>{max}</p>}
+                                </div>
+                                <input
+                                    className={inputClass}
+                                    value={value}
+                                    type="number"
+                                    onBlur={handleBlur}
+                                    onChange={handleInputChange}
+                                />
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                 </div>
-                <p className={scss.max}>{max}</p>
-            </div>
-            <div className={scss.input_state_wrapper}>
-                <input
-                    className={inputClass}
-                    value={value}
-                    type="number"
-                    onBlur={handleBlur}
-                    onChange={handleInputChange}
-                />
-            </div>
+            </motion.div>
         </div>
     );
 };

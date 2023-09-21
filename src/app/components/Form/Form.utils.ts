@@ -1,9 +1,14 @@
 import { FormValues } from 'app/components/Form/types';
 import { containsLettersAndDigits } from 'utils/validateString';
 import { CreateAccBody, CreateReqBody, IService } from 'http/types';
-import { createAccount, createRequest } from 'http/accountApi';
+import { authAccount, createAccount, createRequest } from 'http/accountApi';
 import { toast } from 'react-toastify';
-import { AxiosError } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
+import CookiesUniversal from 'universal-cookie';
+import { IField } from 'store/useConstructorStore';
+import { redirect } from 'next/navigation';
+
+const cookie = new CookiesUniversal();
 
 const emailCheck = /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/gi;
 
@@ -14,9 +19,11 @@ interface ErrorType extends Partial<Omit<FormValues, 'sub'>> {
 type SubmitType = (
     values: FormValues,
     errors: ErrorType,
-    fields: { name: string; count: string }[],
-    setPage: (v: number) => void
-) => void;
+    fields: IField[],
+    setPage: (v: number) => void,
+    alreadyRegistered: boolean,
+    setAlreadyRegistered: (v: boolean) => void
+) => Promise<void>;
 
 export const FormValidate = (values: FormValues) => {
     const errors: ErrorType = {};
@@ -47,63 +54,110 @@ export const FormValidate = (values: FormValues) => {
     return errors;
 };
 
-export const onSubmit: SubmitType = async (values, errors, fields, setPage) => {
+export const onSubmit: SubmitType = async (
+    values,
+    errors,
+    fields,
+    setPage,
+    alreadyRegistered,
+    setAlreadyRegistered
+) => {
+    const reqBody: CreateReqBody = {
+        user: values.email,
+        org: values.inn,
+        rates: fields.map((item) => {
+            return {
+                value: +item.count,
+                key: item.slug,
+                not_limited: true,
+            };
+        }),
+    };
     const body: CreateAccBody = {
         password: values.password,
         phone: values.phone,
         username: values.email,
     };
-    await createAccount(body)
-        .then(() => {
-            const reqBody: CreateReqBody = {
-                user: values.email,
-                org: values.inn,
-                rates: fields.map((item) => {
-                    return {
-                        value: +item.count,
-                        key: item.name,
-                        not_limited: true,
-                    };
-                }),
-            };
-            createRequest(reqBody).then(() => {
-                toast('Успешно!', {
-                    position: 'bottom-right',
-                    hideProgressBar: true,
-                    autoClose: 2000,
-                    type: 'success',
-                    theme: 'colored',
+
+    if (alreadyRegistered) {
+        await authAccount(body).then((data) => {
+            cookie.set('access', data.access);
+            createRequest(reqBody)
+                .then(() => {
+                    toast('Успешно!', {
+                        position: 'bottom-right',
+                        hideProgressBar: true,
+                        autoClose: 2000,
+                        type: 'success',
+                        theme: 'colored',
+                    });
+                })
+                .catch((e) => {
+                    setPage(1);
+                    if (e instanceof AxiosError) {
+                        handleError(errors, e.response);
+                    }
                 });
-            });
-        })
-        .catch((e) => {
-            setPage(1);
-            if (e instanceof AxiosError) {
-                if (e.response?.data.password) {
-                    errors.password = e.response?.data.password;
-                }
-                if (e.response?.data.username) {
-                    if (
-                        e.response?.data.username[0][0] ===
-                        'user с таким username уже существует.'
-                    ) {
-                        errors.email = 'Такой пользователь уже существует.';
-                    } else {
-                        errors.email =
-                            'Только буквы, цифры, нижние подчёркивания или дефисы';
-                    }
-                }
-                if (e.response?.data.phone) {
-                    if (
-                        e.response?.data.phone[0][0] ===
-                        'user с таким phone уже существует.'
-                    ) {
-                        errors.phone =
-                            'Пользователь с таким телефоном уже существует';
-                    } else {
-                        errors.phone = 'Неверный телефон';
-                    }
-                }
-            }
         });
+    } else {
+        await createAccount(body)
+            .then((data) => {
+                setAlreadyRegistered(true);
+                cookie.set('access', data.access);
+                createRequest(reqBody)
+                    .then(() => {
+                        toast('Успешно!', {
+                            position: 'bottom-right',
+                            hideProgressBar: true,
+                            autoClose: 2000,
+                            type: 'success',
+                            theme: 'colored',
+                        });
+                        setTimeout(() => {
+                            redirect('https://vk.com/feed');
+                        }, 2000);
+                    })
+                    .catch((e) => {
+                        setPage(1);
+                        if (e instanceof AxiosError) {
+                            handleError(errors, e.response);
+                        }
+                    });
+            })
+            .catch((e) => {
+                setPage(1);
+                if (e instanceof AxiosError) {
+                    handleError(errors, e.response);
+                }
+            });
+    }
+};
+
+const handleError = (errors: ErrorType, response?: AxiosResponse): void => {
+    if (response?.data.password) {
+        errors.password = response?.data.password;
+    }
+    if (response?.data.username) {
+        if (
+            response?.data.username[0][0] ===
+            'user с таким username уже существует.'
+        ) {
+            errors.email = 'Такой пользователь уже существует.';
+        } else {
+            errors.email =
+                'Только буквы, цифры, нижние подчёркивания или дефисы';
+        }
+    }
+    if (response?.data.phone) {
+        if (
+            response?.data.phone[0][0] === 'user с таким phone уже существует.'
+        ) {
+            errors.phone = 'Пользователь с таким телефоном уже существует';
+        } else {
+            errors.phone = 'Неверный телефон';
+        }
+    }
+    if (response?.data.org[0].org.slug) {
+        errors.inn = 'Неверная организация';
+    }
 };

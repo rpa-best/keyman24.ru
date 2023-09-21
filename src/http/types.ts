@@ -14,6 +14,8 @@ interface IServiceRate {
 export interface IService {
     name: string;
     modelName: string;
+    defaultValue: number;
+    maxValue: number;
 }
 
 export interface CreateAccBody {
@@ -34,8 +36,21 @@ export interface CreateReqBody {
     rates: IRate[];
 }
 
+export interface CreateAccountResponse {
+    access: string;
+    refresh: string;
+}
+
 export type GetServices = () => Promise<IService[]>;
 
-export type CreateAccount = (body: CreateAccBody) => Promise<void>;
+export type GetPrice = (
+    body: IRate[]
+) => Promise<{ body: string[]; cost: number }>;
+
+export type CreateAccount = (
+    body: CreateAccBody
+) => Promise<CreateAccountResponse>;
+
+export type AuthAccount = CreateAccount;
 
 export type CreateRequest = (body: CreateReqBody) => Promise<void>;

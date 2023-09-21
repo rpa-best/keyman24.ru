@@ -8,26 +8,19 @@
   top: 0;
   right: 0;
   bottom: 0;
-  backdrop-filter: blur(20px);
   z-index: 1000;
 }
 
 .modal {
   width: max-content;
-  position: relative;
+  position: absolute;
   background: $dark-main;
-  padding: 30px 100px;
   margin: 10px auto;
-  border-radius: 40px;
+  border-radius: 10px;
   border: 1px solid #414141;
+  top: 5%;
+  right: 0;
   box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.10);
-  @include phoneOrTablet {
-    padding: 30px 50px;
-  }
-  @include phone {
-    width: calc(100% - 10px);
-    padding: 30px 20px;
-  }
 }
 
 .exit_svg {

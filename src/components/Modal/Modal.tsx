@@ -7,22 +7,20 @@ import ExitSvg from '/public/svg/x.svg';
 import { useModalStore } from 'store/modalVisibleStore';
 
 import scss from './Modal.module.scss';
+import { useResizeWidth } from 'helpers/useResizeWidth';
 
 interface ModalProps {
     children: React.ReactElement;
+    preventClickOutside?: boolean;
 }
 
-export const Modal: React.FC<ModalProps> = ({ children }) => {
+export const Modal: React.FC<ModalProps> = ({
+    children,
+    preventClickOutside,
+}) => {
+    const { phoneBreak } = useResizeWidth();
     const [visible] = useModalStore((state) => [state.visible]);
     const [setVisible] = useModalStore((state) => [state.setVisible]);
-
-    useEffect(() => {
-        if (visible) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'auto';
-        }
-    }, [visible]);
 
     return (
         <AnimatePresence>
@@ -31,20 +29,25 @@ export const Modal: React.FC<ModalProps> = ({ children }) => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    onClick={() => setVisible(false)}
+                    onClick={() =>
+                        preventClickOutside ? '' : setVisible(false)
+                    }
                     className={scss.modal_background}
                 >
                     <motion.div
                         onClick={(e) => e.stopPropagation()}
-                        initial={{ opacity: 0, transform: 'translateY(25%)' }}
-                        animate={{ opacity: 1, transform: 'translateY(0)' }}
-                        exit={{ opacity: 0, transform: 'translateY(25%)' }}
+                        initial={{ opacity: 0, x: phoneBreak ? '5%' : '15%' }}
+                        animate={{
+                            opacity: 1,
+                            x: phoneBreak ? '-10%' : '-15%',
+                        }}
+                        exit={{ opacity: 0, x: '15%' }}
                         className={scss.modal}
                     >
-                        <ExitSvg
+                        {/* <ExitSvg
                             onClick={() => setVisible(false)}
                             className={scss.exit_svg}
-                        />
+                        />*/}
                         {children}
                     </motion.div>
                 </motion.div>
