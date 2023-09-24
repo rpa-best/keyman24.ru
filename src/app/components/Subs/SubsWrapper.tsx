@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { motion } from 'framer-motion';
 
 import { IService } from 'http/types';
@@ -9,8 +9,8 @@ import { element, section } from 'app/components/Subs/motionConfig';
 import { RangeSlider } from 'components/UI/Inputs/RangeSlider';
 import { useConstructorStore } from 'store/useConstructorStore';
 import { useRouter } from 'next/navigation';
-
-import { usePrice } from 'helpers/usePrice';
+import { useServices } from 'hooks/useServices';
+import { usePrice } from 'hooks/usePrice';
 
 import scss from './Subs.module.scss';
 
@@ -24,24 +24,7 @@ export const SubsWrapper: React.FC<SubsWrapperProps> = ({ services }) => {
     const price = usePrice(fields, 200);
     const router = useRouter();
 
-    useEffect(() => {
-        const data = localStorage.getItem('constructor');
-        const parsedConstructor = JSON.parse(data as string);
-        if (parsedConstructor?.length && parsedConstructor?.length !== 0) {
-            setFields(parsedConstructor);
-        } else {
-            setFields(
-                services.map((item, index) => ({
-                    id: index,
-                    name: item.name,
-                    count: item.defaultValue.toString(),
-                    max: item.maxValue.toString(),
-                    slug: item.modelName,
-                    notLimited: false,
-                }))
-            );
-        }
-    }, [services, setFields]);
+    useServices(services, setFields);
 
     const handleInputChange = useCallback(
         (index: number, value: string) => {

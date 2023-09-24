@@ -10,13 +10,14 @@ import { Button } from 'components/UI/Button';
 import { RangeSlider } from 'components/UI/Inputs/RangeSlider';
 import { useConstructorStore } from 'store/useConstructorStore';
 import { FormCircles } from 'app/components/Form/FormCircles';
-import { usePrice } from 'helpers/usePrice';
 import { useModalStore } from 'store/modalVisibleStore';
 import { Modal } from 'components/Modal';
 import { ConfirmModal } from 'app/components/Form/ConfirmModal';
 import { Spinner } from 'components/Spinner';
 
 import scss from './Form.module.scss';
+import { useServices } from 'hooks/useServices';
+import { usePrice } from 'hooks/usePrice';
 
 export const Form: React.FC<FormProps> = ({ services }) => {
     const [loading, setLoading] = useState(false);
@@ -25,6 +26,8 @@ export const Form: React.FC<FormProps> = ({ services }) => {
     const [fields] = useConstructorStore((state) => [state.fields]);
     const [setFields] = useConstructorStore((state) => [state.setFields]);
     const [page, setPage] = useState(1);
+
+    useServices(services, setFields);
 
     const price = usePrice(fields, 200);
 
@@ -45,26 +48,6 @@ export const Form: React.FC<FormProps> = ({ services }) => {
                 setLoading(false);
             });
     };
-
-    useEffect(() => {
-        const data = localStorage.getItem('constructor');
-        const parsedConstructor = JSON.parse(data as string);
-
-        if (parsedConstructor?.length !== 0) {
-            setFields(parsedConstructor);
-        } else {
-            setFields(
-                services.map((item, index) => ({
-                    id: index,
-                    name: item.name,
-                    count: item.defaultValue.toString(),
-                    max: item.maxValue.toString(),
-                    slug: item.modelName,
-                    notLimited: false,
-                }))
-            );
-        }
-    }, [fields.length, services, setFields]);
 
     const {
         values,
@@ -109,7 +92,7 @@ export const Form: React.FC<FormProps> = ({ services }) => {
         localStorage.setItem('constructor', JSON.stringify(updatedValues));
     };
 
-    if (fields.length === 0) {
+    if (fields?.length === 0 || !fields) {
         return <div className={scss.form_layout} />;
     }
 
@@ -203,7 +186,7 @@ export const Form: React.FC<FormProps> = ({ services }) => {
                                 <p className={scss.title_pages}>{page} / 2</p>
                             </div>
                             <div className={scss.sliders_wrapper}>
-                                {fields.map((item, index) => (
+                                {fields?.map((item, index) => (
                                     <div
                                         key={index}
                                         className={scss.range_wrapper}

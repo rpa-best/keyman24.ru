@@ -9,7 +9,7 @@ export const usePrice: UsePriceType = (fields, delayMs) => {
     const timerId = useRef<any>();
 
     useEffect(() => {
-        const rateBody = fields.map((item) => {
+        const rateBody = fields?.map((item) => {
             return {
                 value: +item.count,
                 key: item.slug,
