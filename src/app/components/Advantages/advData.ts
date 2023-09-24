@@ -1,28 +1,26 @@
-import { ReactElement } from 'react';
-
 export const advData: {
     title: string;
     text: string;
     svg: 'lock' | 'heart' | 'light' | 'stars';
 }[] = [
     {
-        svg: 'heart',
-        text: 'Use this text to describe your product feature or service.',
-        title: 'Personal support',
-    },
-    {
         svg: 'light',
-        text: 'Use this text to describe your product feature or service.',
-        title: 'Lighting fast',
+        text: 'Время за которое внедряется система занимает 1-3 дня',
+        title: 'Быстрое внедрение',
     },
     {
         svg: 'stars',
-        text: 'Use this text to describe your product feature or service.',
-        title: 'Clean design',
+        text: 'Минимум действий, максимум функционала',
+        title: 'Дружелюбный интерфейс',
+    },
+    {
+        svg: 'heart',
+        text: 'Вы платите только за то, чем вы пользуетесь',
+        title: 'Ничего лишнего',
     },
     {
         svg: 'lock',
-        text: 'Use this text to describe your product feature or service.',
-        title: 'Advanced security',
+        text: 'Повышение эффективности работы СБ и материально ответственных лиц',
+        title: 'Восторг СБ',
     },
 ];
