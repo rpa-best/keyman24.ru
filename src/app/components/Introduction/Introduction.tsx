@@ -34,30 +34,34 @@ export const Introduction = () => {
                 >
                     <div className={scss.desc_card}>
                         <p className={scss.desc_card_title}>
-                            Комплексная система
+                            Автоматизированный контроль доступа иностранным
+                            работникам на объект
                             <span style={{ color: '#3EB79C' }}>
                                 {' '}
-                                автоматизации{' '}
+                                по документам.*{' '}
                             </span>
-                            проходных на объектах, включающая в себя контроль
-                            документов иностранных граждан
+                            С быстрым и прозрачным учетом выдачи ключей,
+                            инструментов и прочих ТМЦ
                         </p>
                         <p className={scss.desc_card_text}>
                             Получайте исчерпывающую информацию об активности на
-                            ваших объектах
+                            ваших объектах <br />
                         </p>
+                        <span className={scss.desc_card_note}>
+                            *может подключаться к существующим СКУД
+                        </span>
                         <div className={scss.desc_card_actions}>
                             <ButtonWrapper />
                         </div>
                     </div>
                 </motion.div>
-                <motion.div
-                    viewport={{ once: true }}
-                    variants={img}
-                    className={scss.desc_image_wrapper}
-                >
-                    <div className={scss.desc_image}></div>
-                </motion.div>
+                <div className={scss.desc_image_wrapper}>
+                    <motion.div
+                        viewport={{ once: true }}
+                        variants={img}
+                        className={scss.desc_image}
+                    ></motion.div>
+                </div>
             </div>
             <motion.div
                 variants={tags}

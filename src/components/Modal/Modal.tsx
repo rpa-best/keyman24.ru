@@ -1,13 +1,12 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
-import ExitSvg from '/public/svg/x.svg';
 import { useModalStore } from 'store/modalVisibleStore';
 
 import scss from './Modal.module.scss';
-import { useResizeWidth } from 'helpers/useResizeWidth';
+import { useResizeWidth } from 'hooks/useResizeWidth';
 
 interface ModalProps {
     children: React.ReactElement;

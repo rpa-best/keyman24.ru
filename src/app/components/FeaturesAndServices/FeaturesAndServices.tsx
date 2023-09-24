@@ -15,14 +15,24 @@ import {
     featureText,
     textElem,
 } from 'app/components/FeaturesAndServices/motionConfig';
+import clsx from 'clsx';
 
 interface FeaturesAndServicesProps {
     features: IFeatureData;
+    reverse?: boolean;
+    note?: string;
 }
 
 export const FeaturesAndServices: React.FC<FeaturesAndServicesProps> = ({
     features,
+    note,
+    reverse = false,
 }) => {
+    const featureClass = clsx({
+        [scss.features]: !reverse,
+        [scss.features_reverse]: reverse,
+    });
+
     return (
         <motion.section
             variants={featureSect}
@@ -31,7 +41,7 @@ export const FeaturesAndServices: React.FC<FeaturesAndServicesProps> = ({
             initial="hidden"
             className={scss.features_layout}
         >
-            <div className={scss.features}>
+            <div className={featureClass}>
                 <motion.div className={scss.features_description}>
                     <motion.h3
                         variants={featureText}
@@ -76,6 +86,7 @@ export const FeaturesAndServices: React.FC<FeaturesAndServicesProps> = ({
                     >
                         <ButtonWrapper />
                     </motion.div>
+                    <span className={scss.features_note}>{note}</span>
                 </motion.div>
                 <motion.div
                     variants={featureImg}

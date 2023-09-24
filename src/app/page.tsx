@@ -2,7 +2,11 @@ import { Introduction } from 'app/components/Introduction';
 import { Advantages } from 'app/components/Advantages';
 import { Subs } from 'app/components/Subs';
 import { FeaturesAndServices } from 'app/components/FeaturesAndServices';
-import { featureData } from 'app/featureData';
+import {
+    featureDataOne,
+    featureDataThree,
+    featureDataTwo,
+} from 'app/featureData';
 
 import scss from './Main.module.scss';
 
@@ -13,7 +17,13 @@ export default function Home() {
                 <Introduction />
                 <Advantages />
                 <Subs />
-                <FeaturesAndServices features={featureData} />
+                <FeaturesAndServices features={featureDataOne} />
+                <FeaturesAndServices
+                    reverse
+                    note="* работы подрядчиков в различных помещениях. На основе реальных замеров. "
+                    features={featureDataTwo}
+                />
+                <FeaturesAndServices features={featureDataThree} />
             </main>
         </>
     );

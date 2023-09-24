@@ -25,6 +25,18 @@
 .features {
   display: flex;
   justify-content: space-between;
+  flex-direction: row;
+  column-gap: 20px;
+  @include phoneOrTablet {
+    flex-direction: column-reverse;
+    row-gap: 20px;
+  }
+}
+
+.features_reverse {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
   column-gap: 20px;
   @include phoneOrTablet {
     flex-direction: column-reverse;
@@ -79,6 +91,9 @@
   @include thousendWidth {
     font-size: 16px;
   }
+  @include phoneOrTablet {
+    font-size: 15px;
+  }
 }
 
 .features_list {
@@ -96,6 +111,9 @@
   }
   @include thousendWidth {
     font-size: 16px;
+  }
+  @include phoneOrTablet {
+    font-size: 15px;
   }
   color: #232323;
 }
@@ -116,6 +134,15 @@
   }
   @include phone {
     width: 100%;
+  }
+}
+
+.features_note {
+  @include MontserratRegular(14px);
+  color: rgba(35, 35, 35, 0.70);
+  margin-top: 10px;
+  @include phoneOrTablet {
+    font-size: 12px;
   }
 }
 

@@ -26,10 +26,12 @@ export const card: Variants = {
 
 export const img: Variants = {
     hidden: {
+        overflow: 'hidden',
         x: '8%',
         opacity: 0,
     },
     visible: {
+        overflow: 'auto',
         x: 0,
         opacity: 1,
         transition: {
