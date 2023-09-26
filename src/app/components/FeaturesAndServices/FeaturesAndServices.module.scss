@@ -27,7 +27,8 @@
   justify-content: space-between;
   flex-direction: row;
   column-gap: 20px;
-  @include phoneOrTablet {
+  @include thousendWidth {
+    align-items: center;
     flex-direction: column-reverse;
     row-gap: 20px;
   }
@@ -38,7 +39,8 @@
   flex-direction: row-reverse;
   justify-content: space-between;
   column-gap: 20px;
-  @include phoneOrTablet {
+  @include thousendWidth {
+    align-items: center;
     flex-direction: column-reverse;
     row-gap: 20px;
   }
@@ -58,7 +60,7 @@
     width: 45%;
   }
   @include thousendWidth {
-    width: calc(50% - 20px);
+    width: calc(80% - 20px);
   }
   @include phoneOrTablet {
     width: 100%;
@@ -185,7 +187,7 @@
   border-radius: 40px;
   background-color: black;
   @include thousendTwoWidth {
-    width: calc(50% - 20px);
+    width: calc(80% - 20px);
   }
   @include phoneOrTablet {
     min-height: 350px;
