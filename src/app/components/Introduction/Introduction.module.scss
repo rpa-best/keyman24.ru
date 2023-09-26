@@ -43,13 +43,13 @@
   column-gap: 80px;
   @include thousendWidth {
     column-gap: 30px;
-  }
-  @include phoneOrTablet {
-    @include tabletCenter;
     align-items: center;
     justify-content: center;
     flex-direction: column-reverse;
     row-gap: 30px;
+  }
+  @include phoneOrTablet {
+    @include tabletCenter;
   }
 }
 
@@ -58,7 +58,7 @@
   width: calc(51% - 15px);
   z-index: 1;
   @include thousendWidth {
-    width: calc(55% - 15px);
+    width: 80%;
   }
   @include phoneOrTablet {
     width: 100%;
@@ -160,8 +160,9 @@
   padding-top: 45px;
   padding-left: 40px;
   @include thousendWidth {
-    width: calc(45% - 15px);
-    padding-left: 30px;
+    width: 80%;
+    padding-top: 30px;
+    padding-left: 0;
   }
   @include phoneOrTablet {
     width: 100%;
