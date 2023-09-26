@@ -9,11 +9,13 @@ import { Footer } from 'app/components/Footer';
 import 'react-toastify/dist/ReactToastify.css';
 import 'scss/utils.scss';
 import 'scss/_reset.scss';
-import scss from './Main.module.scss';
 
 export const metadata: Metadata = {
     title: 'Public Keyman',
     description: 'Public Keyman',
+    verification: {
+        google: 'ppUSrN1XzX0Rrk0IDfWXWVE7Au6HPkhAAaYV4S1ca5k',
+    },
 };
 
 export default function RootLayout({
