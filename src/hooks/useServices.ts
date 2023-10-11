@@ -21,6 +21,8 @@ export const useServices: UseServicesType = (services, setFields) => {
                     count: item.defaultValue.toString(),
                     max: item.maxValue.toString(),
                     slug: item.modelName,
+                    costNotLimited: item.costNotLimited,
+                    cost: item.cost,
                     notLimited: false,
                 }))
             );

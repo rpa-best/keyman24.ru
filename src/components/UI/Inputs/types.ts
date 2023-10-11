@@ -19,7 +19,7 @@ export interface IInputProps {
         | ChangeEventHandler<HTMLTextAreaElement>;
     placeholder?: string;
     style?: CSSProperties;
-    autoComplete?: 'on' | 'off';
+    autoComplete?: 'on' | 'off' | 'new-password';
     disabled?: boolean;
     tabIndex?: number;
     label?: string;
@@ -40,6 +40,7 @@ export interface IInputSelectProps extends Omit<IInputProps, 'onChange'> {
 
 export interface IRangeInputProps {
     name: string;
+    subTitle?: string | string[];
     value: string;
     theme?: 'light' | 'dark';
     check: boolean;

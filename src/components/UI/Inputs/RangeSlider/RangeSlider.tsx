@@ -19,6 +19,7 @@ export const RangeSlider: React.FC<IRangeInputProps> = ({
     check,
     fields,
     index,
+    subTitle,
     setFields,
 }) => {
     const [checked, setChecked] = useState(check);
@@ -30,6 +31,13 @@ export const RangeSlider: React.FC<IRangeInputProps> = ({
             inputRef.current.style.backgroundImage = `linear-gradient(to right, #31D79B ${progress}%, #ccc ${progress}%)`;
         }
     };
+
+    const sbtitle =
+        subTitle instanceof Array
+            ? !checked
+                ? subTitle[0]
+                : subTitle[1]
+            : subTitle;
 
     const handleCheckBox = (check: boolean) => {
         setChecked(check);
@@ -72,13 +80,16 @@ export const RangeSlider: React.FC<IRangeInputProps> = ({
     return (
         <div className={scss.range_wrapper}>
             <motion.div
-                initial={{ height: '80px' }}
-                animate={{ height: checked ? '40px' : '60px' }}
+                initial={{ height: checked ? '30px' : '60px' }}
+                animate={{ height: checked ? '30px' : '60px' }}
                 className={scss.input_range_wrapper}
             >
                 <div className={scss.input_range_wrapper}>
                     <div className={scss.input_range_title}>
-                        <p className={titleClass}>{name}</p>
+                        <p className={titleClass}>
+                            {name}{' '}
+                            <span className={scss.subtitle}>{sbtitle}</span>
+                        </p>
                         <InputCheckbox
                             theme={theme}
                             name="limited"

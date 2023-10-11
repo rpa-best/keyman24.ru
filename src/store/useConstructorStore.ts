@@ -5,6 +5,8 @@ export interface IField {
     name: string;
     slug: string;
     count: string;
+    cost: number;
+    costNotLimited: number;
     max: string;
     notLimited: boolean;
 }

@@ -12,6 +12,8 @@ interface IServiceRate {
 }
 
 export interface IService {
+    cost: number;
+    costNotLimited: number;
     name: string;
     modelName: string;
     defaultValue: number;
