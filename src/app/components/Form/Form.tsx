@@ -14,10 +14,10 @@ import { useModalStore } from 'store/modalVisibleStore';
 import { Modal } from 'components/Modal';
 import { ConfirmModal } from 'app/components/Form/ConfirmModal';
 import { Spinner } from 'components/Spinner';
-
-import scss from './Form.module.scss';
 import { useServices } from 'hooks/useServices';
 import { usePrice } from 'hooks/usePrice';
+
+import scss from './Form.module.scss';
 
 export const Form: React.FC<FormProps> = ({ services }) => {
     const [loading, setLoading] = useState(false);
@@ -128,6 +128,7 @@ export const Form: React.FC<FormProps> = ({ services }) => {
                                     label="Почта"
                                     value={values.email}
                                     name="email"
+                                    autoComplete="new-password"
                                     onBlur={handleBlur}
                                     onChange={handleChange}
                                     placeholder="Укажите почту"
@@ -136,6 +137,7 @@ export const Form: React.FC<FormProps> = ({ services }) => {
                                 <Input
                                     theme="light"
                                     label="Пароль"
+                                    autoComplete="new-password"
                                     value={values.password}
                                     name="password"
                                     onBlur={handleBlur}
@@ -198,6 +200,10 @@ export const Form: React.FC<FormProps> = ({ services }) => {
                                             value={item.count}
                                             min="0"
                                             max={item.max}
+                                            subTitle={[
+                                                `${item.cost} ₽ / шт`,
+                                                `${item.costNotLimited} ₽`,
+                                            ]}
                                             theme="light"
                                             fields={fields}
                                             index={item.id.toString()}

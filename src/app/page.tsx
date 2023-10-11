@@ -8,8 +8,6 @@ import {
     featureDataTwo,
 } from 'app/featureData';
 
-import scss from './Main.module.scss';
-
 export default function Home() {
     return (
         <>

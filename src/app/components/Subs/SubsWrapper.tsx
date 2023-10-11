@@ -58,6 +58,10 @@ export const SubsWrapper: React.FC<SubsWrapperProps> = ({ services }) => {
                             key={index}
                             name={item.name}
                             value={item.count}
+                            subTitle={[
+                                `${item.cost} ₽ / шт`,
+                                `${item.costNotLimited} ₽`,
+                            ]}
                             min="0"
                             check={item.notLimited}
                             max={item.max}
