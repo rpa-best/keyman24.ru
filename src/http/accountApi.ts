@@ -6,7 +6,10 @@ import CookiesUniversal from 'universal-cookie';
 const cookie = new CookiesUniversal();
 
 export const createAccount: T.CreateAccount = async (body) => {
-    const res = await $clientAuth.post('account/create/', body);
+    const res = await $clientAuth.post(
+        'account/create/?login_params=username_password',
+        body
+    );
 
     $clientAuth.interceptors.request.use((req) => {
         req.headers.set('Authorization', `Bearer ${res.data.access}`);
