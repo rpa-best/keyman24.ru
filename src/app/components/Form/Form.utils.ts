@@ -1,12 +1,10 @@
 import { FormValues } from 'app/components/Form/types';
 import { containsLettersAndDigits } from 'utils/validateString';
-import { CreateAccBody, CreateReqBody, IService } from 'http/types';
-import { authAccount, createAccount, createRequest } from 'http/accountApi';
+import { CreateAccBody, CreateReqBody } from 'http/types';
+import { createAccount, createRequest } from 'http/accountApi';
 import { toast } from 'react-toastify';
 import { AxiosError, AxiosResponse } from 'axios';
 import CookiesUniversal from 'universal-cookie';
-import { IField } from 'store/useConstructorStore';
-import { redirect } from 'next/navigation';
 
 const cookie = new CookiesUniversal();
 
@@ -82,9 +80,6 @@ export const onSubmit: SubmitType = async (values, errors, setPage) => {
                         type: 'success',
                         theme: 'colored',
                     });
-                    setTimeout(() => {
-                        redirect('https://vk.com/feed');
-                    }, 2000);
                 })
                 .catch((e) => {
                     setPage(1);
@@ -142,8 +137,6 @@ const handleError = (
             values.pvc = '';
         }
     }
-
-    console.log(response?.data);
 
     if (response?.data.org[0].slug === 'org_already_has_subs') {
         errors.inn = 'Эта организация уже занята';

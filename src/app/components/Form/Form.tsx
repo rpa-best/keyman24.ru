@@ -41,7 +41,6 @@ export const Form: React.FC<FormProps> = ({ services }) => {
         setTouched,
         validateForm,
         setErrors,
-        isValid,
         touched,
         handleSubmit,
         errors,
@@ -89,8 +88,6 @@ export const Form: React.FC<FormProps> = ({ services }) => {
             }
         });
     };
-
-    console.log(errors);
 
     return (
         <>
