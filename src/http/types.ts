@@ -24,6 +24,8 @@ export interface CreateAccBody {
     username: string;
     phone: string;
     password: string;
+    org: string;
+    pvc: string;
 }
 
 export interface IRate {
@@ -35,7 +37,6 @@ export interface IRate {
 export interface CreateReqBody {
     user: string;
     org: string;
-    rates: IRate[];
 }
 
 export interface CreateAccountResponse {

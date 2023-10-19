@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useFormik } from 'formik';
 
 import { FormProps, FormValues } from 'app/components/Form/types';
@@ -7,40 +7,25 @@ import RayArrow from '/public/svg/rayArrow.svg';
 import { FormValidate, onSubmit } from 'app/components/Form/Form.utils';
 import { Input } from 'components/UI/Inputs/Input';
 import { Button } from 'components/UI/Button';
-import { RangeSlider } from 'components/UI/Inputs/RangeSlider';
-import { useConstructorStore } from 'store/useConstructorStore';
 import { FormCircles } from 'app/components/Form/FormCircles';
 import { useModalStore } from 'store/modalVisibleStore';
 import { Modal } from 'components/Modal';
 import { ConfirmModal } from 'app/components/Form/ConfirmModal';
 import { Spinner } from 'components/Spinner';
-import { useServices } from 'hooks/useServices';
-import { usePrice } from 'hooks/usePrice';
+import { checkEmail } from 'http/accountApi';
+import { AxiosError } from 'axios';
+import { isEmpty } from 'utils/isEmpty';
 
 import scss from './Form.module.scss';
 
 export const Form: React.FC<FormProps> = ({ services }) => {
     const [loading, setLoading] = useState(false);
-    const [alreadyRegistered, setAlreadyRegistered] = useState(false);
     const [setVisible] = useModalStore((state) => [state.setVisible]);
-    const [fields] = useConstructorStore((state) => [state.fields]);
-    const [setFields] = useConstructorStore((state) => [state.setFields]);
     const [page, setPage] = useState(1);
-
-    useServices(services, setFields);
-
-    const price = usePrice(fields, 200);
 
     const submit = async (values: FormValues) => {
         setLoading(true);
-        onSubmit(
-            values,
-            errors,
-            fields,
-            setPage,
-            alreadyRegistered,
-            setAlreadyRegistered
-        )
+        onSubmit(values, errors, setPage)
             .then(() => {
                 setTimeout(() => setVisible(true), 1500);
             })
@@ -55,6 +40,8 @@ export const Form: React.FC<FormProps> = ({ services }) => {
         handleChange,
         setTouched,
         validateForm,
+        setErrors,
+        isValid,
         touched,
         handleSubmit,
         errors,
@@ -64,14 +51,33 @@ export const Form: React.FC<FormProps> = ({ services }) => {
             inn: '',
             password: '',
             phone: '',
+            pvc: '',
         },
-        enableReinitialize: true,
         onSubmit: submit,
         validate: FormValidate,
     });
 
-    const handleChanePage = () => {
+    const valid =
+        !errors.phone && !errors.inn && !errors.email && !errors.password;
+
+    const handleChangePage = () => {
         validateForm().then((e) => {
+            if (valid) {
+                checkEmail(values.email)
+                    .then(() => {
+                        setPage(2);
+                    })
+                    .catch((e) => {
+                        if (e instanceof AxiosError) {
+                            if (
+                                e.response?.data.email[0].email.slug ===
+                                'email_already_exists'
+                            ) {
+                                setErrors({ email: 'Эта почта уже занята' });
+                            }
+                        }
+                    });
+            }
             if (Object.keys(e).length !== 0) {
                 setTouched({
                     phone: true,
@@ -81,20 +87,10 @@ export const Form: React.FC<FormProps> = ({ services }) => {
                 });
                 return;
             }
-            setPage(2);
         });
     };
 
-    const handleInputChange = (index: number, value: string) => {
-        const updatedValues = [...fields];
-        updatedValues[index].count = value;
-        setFields(updatedValues);
-        localStorage.setItem('constructor', JSON.stringify(updatedValues));
-    };
-
-    if (fields?.length === 0 || !fields) {
-        return <div className={scss.form_layout} />;
-    }
+    console.log(errors);
 
     return (
         <>
@@ -166,8 +162,9 @@ export const Form: React.FC<FormProps> = ({ services }) => {
                             </div>
                             <div className={scss.form_button_wrapper}>
                                 <Button
-                                    onClick={() => handleChanePage()}
+                                    onClick={() => handleChangePage()}
                                     type="button"
+                                    disabled={!valid}
                                     as="rect"
                                 >
                                     Далее
@@ -183,53 +180,23 @@ export const Form: React.FC<FormProps> = ({ services }) => {
                                         onClick={() => setPage((p) => p - 1)}
                                         className={scss.form_header_arrow}
                                     />
-                                    Конструктор тарифа
+                                    Подтвердите почту
                                 </h3>
                                 <p className={scss.title_pages}>{page} / 2</p>
                             </div>
                             <div className={scss.sliders_wrapper}>
-                                {fields?.map((item, index) => (
-                                    <div
-                                        key={index}
-                                        className={scss.range_wrapper}
-                                    >
-                                        <RangeSlider
-                                            key={index}
-                                            name={item.name}
-                                            check={item.notLimited}
-                                            value={item.count}
-                                            min="0"
-                                            max={item.max}
-                                            subTitle={[
-                                                `${item.cost} ₽ / шт`,
-                                                `${item.costNotLimited} ₽`,
-                                            ]}
-                                            theme="light"
-                                            fields={fields}
-                                            index={item.id.toString()}
-                                            setFields={setFields}
-                                            onChange={(count) =>
-                                                handleInputChange(index, count)
-                                            }
-                                        />
-                                    </div>
-                                ))}
+                                <Input
+                                    label={`Введите код, который мы отправили вам на ${values.email}`}
+                                    placeholder="Укажите код"
+                                    value={values.pvc}
+                                    name="pvc"
+                                    autoComplete="off"
+                                    handleError={touched.pvc && errors.pvc}
+                                    theme="light"
+                                    onChange={handleChange}
+                                />
                             </div>
-                            <div className={scss.form_actions}>
-                                <div className={scss.form_button_wrapper}>
-                                    <Button
-                                        onClick={() => handleChanePage()}
-                                        type="submit"
-                                        as="rect"
-                                    >
-                                        Отправить
-                                    </Button>
-                                </div>
-                                <h2 className={scss.price_wrapper}>
-                                    <span className={scss.price}>{price}₽</span>{' '}
-                                    / за месяц
-                                </h2>
-                            </div>
+                            <Button type="submit">Отправить</Button>
                         </>
                     )}
                 </form>

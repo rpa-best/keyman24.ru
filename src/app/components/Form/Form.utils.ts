@@ -19,10 +19,7 @@ interface ErrorType extends Partial<Omit<FormValues, 'sub'>> {
 type SubmitType = (
     values: FormValues,
     errors: ErrorType,
-    fields: IField[],
-    setPage: (v: number) => void,
-    alreadyRegistered: boolean,
-    setAlreadyRegistered: (v: boolean) => void
+    setPage: (v: number) => void
 ) => Promise<void>;
 
 export const FormValidate = (values: FormValues) => {
@@ -47,6 +44,12 @@ export const FormValidate = (values: FormValues) => {
         errors.password = 'Должен содержать и буквы и цифры';
     }
 
+    if (!values.pvc) {
+        errors.pvc = 'Обязательное поле';
+    } else if (values.pvc.length !== 6) {
+        errors.pvc = 'Длина кода 6 символов';
+    }
+
     if (!values.inn) {
         errors.inn = 'Обязательное поле';
     }
@@ -54,33 +57,21 @@ export const FormValidate = (values: FormValues) => {
     return errors;
 };
 
-export const onSubmit: SubmitType = async (
-    values,
-    errors,
-    fields,
-    setPage,
-    alreadyRegistered,
-    setAlreadyRegistered
-) => {
+export const onSubmit: SubmitType = async (values, errors, setPage) => {
     const reqBody: CreateReqBody = {
         user: values.email,
         org: values.inn,
-        rates: fields.map((item) => {
-            return {
-                value: +item.count,
-                key: item.slug,
-                not_limited: true,
-            };
-        }),
     };
     const body: CreateAccBody = {
         password: values.password,
         phone: values.phone,
         username: values.email,
+        org: values.inn,
+        pvc: values.pvc,
     };
 
-    if (alreadyRegistered) {
-        await authAccount(body).then((data) => {
+    await createAccount(body)
+        .then((data) => {
             cookie.set('access', data.access);
             createRequest(reqBody)
                 .then(() => {
@@ -91,61 +82,47 @@ export const onSubmit: SubmitType = async (
                         type: 'success',
                         theme: 'colored',
                     });
+                    setTimeout(() => {
+                        redirect('https://vk.com/feed');
+                    }, 2000);
                 })
                 .catch((e) => {
                     setPage(1);
                     if (e instanceof AxiosError) {
-                        handleError(errors, e.response);
+                        handleError(errors, values, e.response);
                     }
+                    throw e;
                 });
+        })
+        .catch((e) => {
+            setPage(1);
+            if (e instanceof AxiosError) {
+                handleError(errors, values, e.response);
+            }
+            throw e;
         });
-    } else {
-        await createAccount(body)
-            .then((data) => {
-                setAlreadyRegistered(true);
-                cookie.set('access', data.access);
-                createRequest(reqBody)
-                    .then(() => {
-                        toast('Успешно!', {
-                            position: 'bottom-right',
-                            hideProgressBar: true,
-                            autoClose: 2000,
-                            type: 'success',
-                            theme: 'colored',
-                        });
-                        setTimeout(() => {
-                            redirect('https://vk.com/feed');
-                        }, 2000);
-                    })
-                    .catch((e) => {
-                        setPage(1);
-                        if (e instanceof AxiosError) {
-                            handleError(errors, e.response);
-                        }
-                    });
-            })
-            .catch((e) => {
-                setPage(1);
-                if (e instanceof AxiosError) {
-                    handleError(errors, e.response);
-                }
-            });
-    }
 };
 
-const handleError = (errors: ErrorType, response?: AxiosResponse): void => {
+const handleError = (
+    errors: ErrorType,
+    values: FormValues,
+    response?: AxiosResponse
+): void => {
     if (response?.data.password) {
         errors.password = response?.data.password;
+        values.pvc = '';
     }
     if (response?.data.username) {
         if (
             response?.data.username[0][0] ===
             'user с таким username уже существует.'
         ) {
+            values.pvc = '';
             errors.email = 'Такой пользователь уже существует.';
         } else {
             errors.email =
                 'Только буквы, цифры, нижние подчёркивания или дефисы';
+            values.pvc = '';
         }
     }
     if (response?.data.phone) {
@@ -153,11 +130,23 @@ const handleError = (errors: ErrorType, response?: AxiosResponse): void => {
             response?.data.phone[0][0] === 'user с таким phone уже существует.'
         ) {
             errors.phone = 'Пользователь с таким телефоном уже существует';
+            values.pvc = '';
         } else {
             errors.phone = 'Неверный телефон';
+            values.pvc = '';
         }
     }
-    if (response?.data.org[0].org.slug) {
-        errors.inn = 'Неверная организация';
+    if (response?.data?.message) {
+        if (response?.data?.message[0][0] === 'К') {
+            errors.inn = 'Неверная организация';
+            values.pvc = '';
+        }
+    }
+
+    console.log(response?.data);
+
+    if (response?.data.org[0].slug === 'org_already_has_subs') {
+        errors.inn = 'Эта организация уже занята';
+        values.pvc = '';
     }
 };

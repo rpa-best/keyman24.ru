@@ -17,6 +17,14 @@ export const createAccount: T.CreateAccount = async (body) => {
     return res.data;
 };
 
+export const checkEmail = async (email: string) => {
+    const res = await $clientAuth.post('account/check-email/?place=register', {
+        email,
+    });
+
+    return res.data;
+};
+
 export const authAccount: T.AuthAccount = async (body) => {
     const res = await $clientAuth.post(
         'account/auth/?login_params=username_password',
