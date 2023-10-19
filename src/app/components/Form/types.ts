@@ -9,4 +9,5 @@ export interface FormValues {
     phone: string;
     email: string;
     password: string;
+    pvc: string;
 }
