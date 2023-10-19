@@ -25,6 +25,8 @@ export interface CreateAccBody {
     phone: string;
     org: string;
     password: string;
+    org: string;
+    pvc: string;
 }
 
 export interface IRate {

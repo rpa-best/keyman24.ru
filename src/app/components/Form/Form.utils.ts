@@ -19,6 +19,8 @@ interface ErrorType extends Partial<Omit<FormValues, 'sub'>> {
 type SubmitType = (
     values: FormValues,
     errors: ErrorType,
+    fields: IField[],
+    setPage: (v: number) => void,
     alreadyRegistered: boolean,
     setAlreadyRegistered: (v: boolean) => void
 ) => Promise<void>;
@@ -55,17 +57,25 @@ export const FormValidate = (values: FormValues) => {
 export const onSubmit: SubmitType = async (
     values,
     errors,
+    fields,
+    setPage,
     alreadyRegistered,
     setAlreadyRegistered
 ) => {
     const reqBody: CreateReqBody = {
         user: values.email,
         org: values.inn,
+        rates: fields.map((item) => {
+            return {
+                value: +item.count,
+                key: item.slug,
+                not_limited: true,
+            };
+        }),
     };
     const body: CreateAccBody = {
         password: values.password,
         phone: values.phone,
-        org: values.inn,
         username: values.email,
     };
 
@@ -83,6 +93,7 @@ export const onSubmit: SubmitType = async (
                     });
                 })
                 .catch((e) => {
+                    setPage(1);
                     if (e instanceof AxiosError) {
                         handleError(errors, e.response);
                     }
@@ -93,8 +104,28 @@ export const onSubmit: SubmitType = async (
             .then((data) => {
                 setAlreadyRegistered(true);
                 cookie.set('access', data.access);
+                createRequest(reqBody)
+                    .then(() => {
+                        toast('Успешно!', {
+                            position: 'bottom-right',
+                            hideProgressBar: true,
+                            autoClose: 2000,
+                            type: 'success',
+                            theme: 'colored',
+                        });
+                        setTimeout(() => {
+                            redirect('https://vk.com/feed');
+                        }, 2000);
+                    })
+                    .catch((e) => {
+                        setPage(1);
+                        if (e instanceof AxiosError) {
+                            handleError(errors, e.response);
+                        }
+                    });
             })
             .catch((e) => {
+                setPage(1);
                 if (e instanceof AxiosError) {
                     handleError(errors, e.response);
                 }
