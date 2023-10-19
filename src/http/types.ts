@@ -23,7 +23,6 @@ export interface IService {
 export interface CreateAccBody {
     username: string;
     phone: string;
-    org: string;
     password: string;
     org: string;
     pvc: string;
