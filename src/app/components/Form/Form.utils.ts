@@ -56,10 +56,6 @@ export const FormValidate = (values: FormValues) => {
 };
 
 export const onSubmit: SubmitType = async (values, errors, setPage) => {
-    const reqBody: CreateReqBody = {
-        user: values.email,
-        org: values.inn,
-    };
     const body: CreateAccBody = {
         password: values.password,
         phone: values.phone,
@@ -71,23 +67,6 @@ export const onSubmit: SubmitType = async (values, errors, setPage) => {
     await createAccount(body)
         .then((data) => {
             cookie.set('access', data.access);
-            createRequest(reqBody)
-                .then(() => {
-                    toast('Успешно!', {
-                        position: 'bottom-right',
-                        hideProgressBar: true,
-                        autoClose: 2000,
-                        type: 'success',
-                        theme: 'colored',
-                    });
-                })
-                .catch((e) => {
-                    setPage(1);
-                    if (e instanceof AxiosError) {
-                        handleError(errors, values, e.response);
-                    }
-                    throw e;
-                });
         })
         .catch((e) => {
             setPage(1);

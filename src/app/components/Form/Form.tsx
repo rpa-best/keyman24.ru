@@ -14,7 +14,6 @@ import { ConfirmModal } from 'app/components/Form/ConfirmModal';
 import { Spinner } from 'components/Spinner';
 import { checkEmail } from 'http/accountApi';
 import { AxiosError } from 'axios';
-import { isEmpty } from 'utils/isEmpty';
 
 import scss from './Form.module.scss';
 
