@@ -1,25 +1,29 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
+import ExitSvg from '/public/svg/x.svg';
 import { useModalStore } from 'store/modalVisibleStore';
 
 import scss from './Modal.module.scss';
-import { useResizeWidth } from 'hooks/useResizeWidth';
+import { toast } from 'react-toastify';
 
 interface ModalProps {
     children: React.ReactElement;
-    preventClickOutside?: boolean;
 }
 
-export const Modal: React.FC<ModalProps> = ({
-    children,
-    preventClickOutside,
-}) => {
-    const { phoneBreak } = useResizeWidth();
+export const Modal: React.FC<ModalProps> = ({ children }) => {
     const [visible] = useModalStore((state) => [state.visible]);
     const [setVisible] = useModalStore((state) => [state.setVisible]);
+
+    useEffect(() => {
+        if (visible) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }
+    }, [visible]);
 
     return (
         <AnimatePresence>
@@ -28,25 +32,26 @@ export const Modal: React.FC<ModalProps> = ({
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    onClick={() =>
-                        preventClickOutside ? '' : setVisible(false)
-                    }
+                    onClick={() => {
+                        setVisible(false);
+                        toast.dismiss();
+                    }}
                     className={scss.modal_background}
                 >
                     <motion.div
                         onClick={(e) => e.stopPropagation()}
-                        initial={{ opacity: 0, x: phoneBreak ? '5%' : '15%' }}
-                        animate={{
-                            opacity: 1,
-                            x: phoneBreak ? '-10%' : '-15%',
-                        }}
-                        exit={{ opacity: 0, x: '15%' }}
+                        initial={{ opacity: 0, transform: 'translateY(25%)' }}
+                        animate={{ opacity: 1, transform: 'translateY(0)' }}
+                        exit={{ opacity: 0, transform: 'translateY(25%)' }}
                         className={scss.modal}
                     >
-                        {/* <ExitSvg
-                            onClick={() => setVisible(false)}
+                        <ExitSvg
+                            onClick={() => {
+                                setVisible(false);
+                                toast.dismiss();
+                            }}
                             className={scss.exit_svg}
-                        />*/}
+                        />
                         {children}
                     </motion.div>
                 </motion.div>

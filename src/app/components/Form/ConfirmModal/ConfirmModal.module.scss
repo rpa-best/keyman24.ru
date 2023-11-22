@@ -4,15 +4,13 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 20px 30px;
-  @include phone {
-    padding: 20px;
-  }
 }
 
 .modal_text {
   @include MontserratRegular(18px);
   color: white;
+  text-align: center;
+  margin-bottom: 10px;
 }
 
 .buttons_wrapper {
@@ -24,14 +22,10 @@
 .button_default {
   width: calc(50% - 5px);
   border-radius: 10px;
-  padding: 10px;
-  margin-top: 20px;
+  padding: 5px;
   cursor: pointer;
   transition: .2s all ease-in-out;
   will-change: transform;
-  @include phone {
-    padding: 7px 5px;
-  }
 }
 
 .yes_button {

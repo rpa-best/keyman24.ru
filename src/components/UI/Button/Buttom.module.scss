@@ -9,6 +9,10 @@
   &:active {
     background-color: #25A476;
   }
+  &:disabled {
+    pointer-events: none;
+    background-color: $gray-semi;
+  }
 }
 
 .button {
@@ -55,6 +59,7 @@
     height: 43px;
     font-size: 18px;
   }
+
 }
 
 .button_rect_secondary {

@@ -70,10 +70,12 @@ export const Introduction = () => {
             >
                 <div className={scss.tags}>
                     {introData.map((el, i) => (
-                        <div key={i} className={scss.tag}>
-                            <Button disabled severity="secondary">
-                                {el}
-                            </Button>
+                        <div
+                            style={{ pointerEvents: 'none' }}
+                            key={i}
+                            className={scss.tag}
+                        >
+                            <Button severity="secondary">{el}</Button>
                         </div>
                     ))}
                 </div>

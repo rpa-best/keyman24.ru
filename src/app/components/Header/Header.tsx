@@ -8,9 +8,10 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 import scss from 'app/Main.module.scss';
+import { useModalStore } from 'store/modalVisibleStore';
 
 export const Header = () => {
-    const router = useRouter();
+    const [setVisible] = useModalStore((state) => [state.setVisible]);
 
     return (
         <header className={scss.header_layout}>
@@ -21,7 +22,7 @@ export const Header = () => {
                 <div className={scss.button_wrapper}>
                     <Button
                         onClick={() => {
-                            router.push('/register');
+                            setVisible(true);
                         }}
                     >
                         Купить подписку
