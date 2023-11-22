@@ -5,13 +5,15 @@ import { createAccount, createRequest } from 'http/accountApi';
 import { toast } from 'react-toastify';
 import { AxiosError, AxiosResponse } from 'axios';
 import CookiesUniversal from 'universal-cookie';
+import { isEmpty } from 'utils/isEmpty';
 
 const cookie = new CookiesUniversal();
 
 const emailCheck = /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/gi;
 
-interface ErrorType extends Partial<Omit<FormValues, 'sub'>> {
+export interface ErrorType extends Partial<Omit<FormValues, 'sub' | 'pvc'>> {
     sub?: string;
+    pvc?: string;
 }
 
 type SubmitType = (
@@ -20,11 +22,21 @@ type SubmitType = (
     setPage: (v: number) => void
 ) => Promise<void>;
 
+export function fullFilled(str: string[]) {
+    return str.every((el) => /\d/g.test(el));
+}
+
 export const FormValidate = (values: FormValues) => {
     const errors: ErrorType = {};
 
     if (!values.phone) {
         errors.phone = 'Обязательное поле';
+    }
+
+    if (isEmpty(values.pvc)) {
+        errors.pvc = 'Укажите код';
+    } else if (!fullFilled(values.pvc)) {
+        errors.pvc = 'Не полный код';
     }
 
     if (values.email === '') {
@@ -61,64 +73,37 @@ export const onSubmit: SubmitType = async (values, errors, setPage) => {
         phone: values.phone,
         username: values.email,
         org: values.inn,
-        pvc: values.pvc,
+        pvc: values.pvc.join(''),
     };
 
-    await createAccount(body)
-        .then((data) => {
-            cookie.set('access', data.access);
-        })
-        .catch((e) => {
-            setPage(1);
+    await createAccount(body).then((data) => {
+        cookie.set('access', data.access);
+    });
+    /*.catch((e) => {
             if (e instanceof AxiosError) {
                 handleError(errors, values, e.response);
             }
             throw e;
-        });
+        });*/
 };
 
-const handleError = (
+export const handleError = (
     errors: ErrorType,
-    values: FormValues,
     response?: AxiosResponse
 ): void => {
     if (response?.data.password) {
-        errors.password = response?.data.password;
-        values.pvc = '';
+        errors.password = response?.data.password.flat(Infinity)[0];
     }
     if (response?.data.username) {
-        if (
-            response?.data.username[0][0] ===
-            'user с таким username уже существует.'
-        ) {
-            values.pvc = '';
-            errors.email = 'Такой пользователь уже существует.';
-        } else {
-            errors.email =
-                'Только буквы, цифры, нижние подчёркивания или дефисы';
-            values.pvc = '';
-        }
+        errors.email = response?.data?.username.flat(Infinity)[0].name;
     }
     if (response?.data.phone) {
-        if (
-            response?.data.phone[0][0] === 'user с таким phone уже существует.'
-        ) {
-            errors.phone = 'Пользователь с таким телефоном уже существует';
-            values.pvc = '';
-        } else {
-            errors.phone = 'Неверный телефон';
-            values.pvc = '';
-        }
+        errors.phone = response?.data?.phone.flat(Infinity)[0]?.phone.name;
     }
     if (response?.data?.message) {
-        if (response?.data?.message[0][0] === 'К') {
-            errors.inn = 'Неверная организация';
-            values.pvc = '';
-        }
+        errors.inn = response?.data?.message.flat(Infinity)[0];
     }
-
-    if (response?.data.org[0].slug === 'org_already_has_subs') {
-        errors.inn = 'Эта организация уже занята';
-        values.pvc = '';
+    if (response?.data?.org) {
+        errors.inn = response?.data?.org.flat(Infinity)[0].name;
     }
 };

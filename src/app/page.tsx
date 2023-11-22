@@ -7,6 +7,8 @@ import {
     featureDataThree,
     featureDataTwo,
 } from 'app/featureData';
+import { Modal } from 'components/Modal';
+import { Form } from 'app/components/Form';
 
 export default function Home() {
     return (
@@ -22,6 +24,9 @@ export default function Home() {
                     features={featureDataTwo}
                 />
                 <FeaturesAndServices features={featureDataThree} />
+                <Modal>
+                    <Form />
+                </Modal>
             </main>
         </>
     );

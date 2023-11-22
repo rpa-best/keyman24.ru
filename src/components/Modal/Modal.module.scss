@@ -8,19 +8,29 @@
   top: 0;
   right: 0;
   bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(20px);
   z-index: 1000;
 }
 
 .modal {
   width: max-content;
-  position: absolute;
-  background: $dark-main;
-  margin: 10px auto;
-  border-radius: 10px;
-  border: 1px solid #414141;
-  top: 5%;
-  right: 0;
+  position: relative;
+  background: white;
+  padding: 40px 80px;
+  margin: 10px 0;
+  border-radius: 40px;
   box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.10);
+  @include phoneOrTablet {
+    padding: 30px 40px;
+  }
+  @include phone {
+    width: calc(100%);
+    margin: 0 auto;
+    padding: 30px 20px;
+  }
 }
 
 .exit_svg {
@@ -33,4 +43,5 @@
   &:hover {
     color: white;
   }
+
 }

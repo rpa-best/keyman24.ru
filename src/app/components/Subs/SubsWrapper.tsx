@@ -13,6 +13,7 @@ import { useServices } from 'hooks/useServices';
 import { usePrice } from 'hooks/usePrice';
 
 import scss from './Subs.module.scss';
+import { useModalStore } from 'store/modalVisibleStore';
 
 interface SubsWrapperProps {
     services: IService[];
@@ -21,8 +22,8 @@ interface SubsWrapperProps {
 export const SubsWrapper: React.FC<SubsWrapperProps> = ({ services }) => {
     const [fields] = useConstructorStore((state) => [state.fields]);
     const [setFields] = useConstructorStore((state) => [state.setFields]);
+    const [setVisible] = useModalStore((state) => [state.setVisible]);
     const price = usePrice(fields, 200);
-    const router = useRouter();
 
     useServices(services, setFields);
 
@@ -81,7 +82,7 @@ export const SubsWrapper: React.FC<SubsWrapperProps> = ({ services }) => {
                 className={scss.button_wrapper}
             >
                 <button
-                    onClick={() => router.push('/register')}
+                    onClick={() => setVisible(true)}
                     className={scss.button}
                 >
                     Оформить за {price}

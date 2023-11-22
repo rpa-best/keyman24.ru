@@ -9,7 +9,7 @@ export interface IInputProps {
     handleError?: string | undefined | boolean;
     type?: HTMLInputElement['type'];
     size?: 'big' | 'medium';
-    theme: 'light' | 'dark';
+    theme?: 'light' | 'dark';
     errorFontColor?: string;
     onBlur?: (
         event: FocusEvent<HTMLInputElement> | FocusEvent<HTMLTextAreaElement>

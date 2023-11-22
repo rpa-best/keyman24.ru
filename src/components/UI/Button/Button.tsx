@@ -33,8 +33,8 @@ export const Button: React.FC<ButtonProps> = ({
     return (
         <button
             type={type}
-            style={{ pointerEvents: disabled ? 'none' : 'auto' }}
             className={buttonClass}
+            disabled={disabled}
             onClick={onClick}
         >
             {children}

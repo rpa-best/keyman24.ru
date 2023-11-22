@@ -28,8 +28,8 @@ export default function RootLayout({
             <body className={montserrat.className}>
                 <Header />
                 {children}
-                <ToastContainer />
                 <Footer />
+                <ToastContainer />
             </body>
         </html>
     );

@@ -1,66 +1,18 @@
 @import "scss/utils";
 
-.form_layout {
-  min-height: 600px;
-  @include fullHd {
-    @include pcWidth();
-    min-height: 700px;
-    column-gap: 160px;
-    margin: 80px auto 180px;
-  }
-  @include minPcWidth();
-  display: flex;
-  column-gap: 30px;
-  border: 1px solid $gray-semi;
-  padding: 40px;
-  border-radius: 20px;
-  margin: 40px auto 80px;
-
-  backdrop-filter: blur(10px);
-  z-index: 1;
-  @include phoneOrTablet {
-      width: calc(100% - 30px);
-      margin: 20px auto;
-      padding: 20px;
-    overflow: hidden;
-  }
-  @include phone {
-    min-height: 550px;
-  }
-}
-
 .content_wrapper {
   width: 100%;
   display: flex;
 }
 
 .form {
-  width: 50%;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  @include thousendTwoWidth {
-    width: 55%;
-  }
-  @include thousendWidth {
-    width: 75%;
-    margin: 0 auto;
-  }
   @include phoneOrTablet {
     width: 100%;
   }
 }
 
-.image {
-  min-height: 100%;
-  min-width: 40%;
-  background-color: black;
-  border-radius: 40px;
-  margin-left: auto;
-  @include thousendWidth {
-    display: none;
-  }
-}
 
 .form_header {
   @include MontserratSemiBold(32px);
@@ -70,9 +22,16 @@
 }
 
 .account {
+  min-width: 550px;
   width: 100%;
   display: flex;
   flex-direction: column;
+  @include phoneOrTablet {
+    min-width: 75vw;
+  }
+  @include phone {
+    min-width: 100%;
+  }
 }
 
 .title {
@@ -81,6 +40,9 @@
   align-items: center;
   justify-content: space-between;
   column-gap: 10px;
+  @include phoneOrTablet {
+    margin-top: 10px;
+  }
 }
 
 .title_pages {
@@ -90,7 +52,6 @@
 }
 
 .register {
-  margin-top: 20px;
   width: 100%;
   position: relative;
   @include phone {
@@ -122,10 +83,11 @@
 .form_button_wrapper {
   display: flex;
   align-items: center;
+  margin: 5px auto 0;
   @include fullHd {
     width: 350px;
   }
-  width: 50%;
+  width: 100%;
   @include phone {
     width: 100%;
   }
@@ -173,5 +135,15 @@
   row-gap: 15px;
   & .range_wrapper {
     width: 100%;
+  }
+}
+
+.pin_description {
+  @include MontserratRegular(16px);
+  color: $gray;
+  margin-bottom: 15px;
+  & span {
+    color: $dark-main;
+    text-decoration: underline;
   }
 }
