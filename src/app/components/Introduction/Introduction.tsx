@@ -23,7 +23,7 @@ import Image from 'next/image';
 export const Introduction = () => {
     return (
         <motion.section
-            variants={isMobile ? undefined : section}
+            variants={isMobile ? {} : section}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -33,7 +33,7 @@ export const Introduction = () => {
                 <Circles />
                 <motion.div
                     viewport={{ once: true }}
-                    variants={isMobile ? undefined : card}
+                    variants={isMobile ? {} : card}
                     className={scss.desc_card_wrapper}
                 >
                     <div className={scss.desc_card}>
@@ -61,7 +61,7 @@ export const Introduction = () => {
                 </motion.div>
                 <motion.div
                     viewport={{ once: true }}
-                    variants={isMobile ? undefined : img}
+                    variants={isMobile ? {} : img}
                     className={scss.desc_image_wrapper}
                 >
                     <Image
@@ -77,7 +77,7 @@ export const Introduction = () => {
                 </motion.div>
             </div>
             <motion.div
-                variants={isMobile ? undefined : tags}
+                variants={isMobile ? {} : tags}
                 viewport={{ once: true }}
                 className={scss.tags_layout}
             >
