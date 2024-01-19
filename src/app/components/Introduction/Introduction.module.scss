@@ -36,7 +36,6 @@
     column-gap: 160px;
   }
   @include minPcWidth();
-  height: 630px;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
@@ -144,16 +143,26 @@
 }
 
 .desc_image {
-  min-height: 100%;
-  width: 100%;
-  background-color: black;
-  border-radius: 40px;
+  @include bigtablet {
+    border: 1px solid #E9E9E9;
+    border-radius: 40px;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+  }
+  @include phoneOrTablet {
+    height: 400px;
+    box-shadow: none;
+    border: none;
+  }
+  @include phone {
+    height: 350px;
+    width: 100vw;
+  }
 }
 
 .desc_image_wrapper {
-  overflow: hidden;
   height: 100%;
   width: calc(49% - 15px);
+  border-radius: 40px;
   @include fullHd {
     padding-top: 70px;
   }

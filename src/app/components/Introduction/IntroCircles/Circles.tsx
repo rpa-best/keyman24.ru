@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-
+import { isMobile } from 'react-device-detect';
 import { motion } from 'framer-motion';
 import { circleAnimation } from 'motionConfigs/circlesConfig';
 
@@ -13,7 +13,7 @@ export const Circles = () => {
             initial="hidden"
             animate="visible"
             custom={item}
-            variants={circleAnimation}
+            variants={isMobile ? undefined : circleAnimation}
             className={scss.circle}
             key={item}
         />

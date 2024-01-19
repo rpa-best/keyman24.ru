@@ -2,12 +2,13 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import { isMobile } from 'react-device-detect';
+import clsx from 'clsx';
 
 import { IFeatureData } from 'app/featureData';
+import Image, { StaticImageData } from 'next/image';
 import { SvgWrapper } from 'app/components/FeaturesAndServices/SvgWrapper';
 import { ButtonWrapper } from 'app/components/FeaturesAndServices/ButtonWrapper';
-
-import scss from './FeaturesAndServices.module.scss';
 import {
     featureBtn,
     featureImg,
@@ -15,18 +16,21 @@ import {
     featureText,
     textElem,
 } from 'app/components/FeaturesAndServices/motionConfig';
-import clsx from 'clsx';
+
+import scss from './FeaturesAndServices.module.scss';
 
 interface FeaturesAndServicesProps {
     features: IFeatureData;
     reverse?: boolean;
     note?: string;
+    contentImg: StaticImageData;
 }
 
 export const FeaturesAndServices: React.FC<FeaturesAndServicesProps> = ({
     features,
     note,
     reverse = false,
+    contentImg,
 }) => {
     const featureClass = clsx({
         [scss.features]: !reverse,
@@ -35,7 +39,7 @@ export const FeaturesAndServices: React.FC<FeaturesAndServicesProps> = ({
 
     return (
         <motion.section
-            variants={featureSect}
+            variants={isMobile ? undefined : featureSect}
             viewport={{ once: true, amount: 0.4 }}
             whileInView="visible"
             initial="hidden"
@@ -44,14 +48,14 @@ export const FeaturesAndServices: React.FC<FeaturesAndServicesProps> = ({
             <div className={featureClass}>
                 <motion.div className={scss.features_description}>
                     <motion.h3
-                        variants={featureText}
+                        variants={isMobile ? undefined : featureText}
                         custom={1}
                         className={scss.features_description_title}
                     >
                         {features.title}
                     </motion.h3>
                     <motion.p
-                        variants={featureText}
+                        variants={isMobile ? undefined : featureText}
                         custom={1.2}
                         className={scss.features_description_text}
                     >
@@ -60,7 +64,7 @@ export const FeaturesAndServices: React.FC<FeaturesAndServicesProps> = ({
                     <div className={scss.features_list}>
                         {features.featuresList.map((f, i) => (
                             <motion.div
-                                variants={textElem}
+                                variants={isMobile ? undefined : textElem}
                                 custom={i + 1}
                                 viewport={{ once: true, amount: 0.4 }}
                                 key={i}
@@ -81,7 +85,7 @@ export const FeaturesAndServices: React.FC<FeaturesAndServicesProps> = ({
                     </div>
                     <motion.div
                         viewport={{ once: true, amount: 0.4 }}
-                        variants={featureBtn}
+                        variants={isMobile ? undefined : featureBtn}
                         className={scss.button_wrapper}
                     >
                         <ButtonWrapper />
@@ -89,9 +93,20 @@ export const FeaturesAndServices: React.FC<FeaturesAndServicesProps> = ({
                     <span className={scss.features_note}>{note}</span>
                 </motion.div>
                 <motion.div
-                    variants={featureImg}
+                    variants={isMobile ? undefined : featureImg}
                     className={scss.img_wrapper}
-                ></motion.div>
+                >
+                    <Image
+                        sizes={
+                            '(max-width: 1920px) 50vw,(max-width: 480px) 100vw'
+                        }
+                        src={contentImg}
+                        alt="feature image"
+                        width={1000}
+                        height={700}
+                        className={scss.img}
+                    />
+                </motion.div>
             </div>
         </motion.section>
     );

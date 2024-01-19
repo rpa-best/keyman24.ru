@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import { isMobile } from 'react-device-detect';
 
 import { ButtonWrapper } from 'app/components/Introduction/ButtonWrapper';
 import { Button } from 'components/UI/Button';
@@ -14,12 +15,15 @@ import {
     tags,
 } from 'app/components/Introduction/motionConfig';
 
+import IntroImg from '/public/intro.jpg';
+
 import scss from './Introduction.module.scss';
+import Image from 'next/image';
 
 export const Introduction = () => {
     return (
         <motion.section
-            variants={section}
+            variants={isMobile ? undefined : section}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -29,7 +33,7 @@ export const Introduction = () => {
                 <Circles />
                 <motion.div
                     viewport={{ once: true }}
-                    variants={card}
+                    variants={isMobile ? undefined : card}
                     className={scss.desc_card_wrapper}
                 >
                     <div className={scss.desc_card}>
@@ -55,16 +59,25 @@ export const Introduction = () => {
                         </div>
                     </div>
                 </motion.div>
-                <div className={scss.desc_image_wrapper}>
-                    <motion.div
-                        viewport={{ once: true }}
-                        variants={img}
+                <motion.div
+                    viewport={{ once: true }}
+                    variants={isMobile ? undefined : img}
+                    className={scss.desc_image_wrapper}
+                >
+                    <Image
                         className={scss.desc_image}
-                    ></motion.div>
-                </div>
+                        sizes={
+                            '(max-width: 1920px) 50vw,(max-width: 480px) 100vw'
+                        }
+                        width={700}
+                        height={500}
+                        src={IntroImg}
+                        alt="Вступительное изображение"
+                    />
+                </motion.div>
             </div>
             <motion.div
-                variants={tags}
+                variants={isMobile ? undefined : tags}
                 viewport={{ once: true }}
                 className={scss.tags_layout}
             >
