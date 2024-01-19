@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { isMobile } from 'react-device-detect';
 
 import { SvgContainer } from 'app/components/Advantages/SvgContainer';
 import { advData } from 'app/components/Advantages/advData';
@@ -11,6 +10,8 @@ import { advElement, advSection } from 'app/components/Advantages/motionConfig';
 import scss from './Advantages.module.scss';
 
 export const Advantages = () => {
+    const isMobile = window.innerWidth <= 768;
+
     return (
         <motion.section
             variants={isMobile ? undefined : advSection}
