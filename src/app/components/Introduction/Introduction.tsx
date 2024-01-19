@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { isMobile } from 'react-device-detect';
 
 import { ButtonWrapper } from 'app/components/Introduction/ButtonWrapper';
 import { Button } from 'components/UI/Button';
@@ -21,6 +20,8 @@ import scss from './Introduction.module.scss';
 import Image from 'next/image';
 
 export const Introduction = () => {
+    const isMobile = window.innerWidth <= 768;
+
     return (
         <motion.section
             variants={isMobile ? {} : section}

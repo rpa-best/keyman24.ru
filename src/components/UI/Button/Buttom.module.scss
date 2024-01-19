@@ -3,12 +3,15 @@
 .default {
   cursor: pointer;
   transition: .2s background-color ease-in-out;
+
   &:hover {
     background-color: #2BBB86;
   }
+
   &:active {
     background-color: #25A476;
   }
+
   &:disabled {
     pointer-events: none;
     background-color: $gray-semi;
@@ -30,10 +33,11 @@
   font-weight: 600;
   line-height: normal;
   @include phoneOrTablet {
-    @include phoneOrTablet {
-      height: 40px;
-      font-size: 18px;
-    }
+    height: 40px;
+    font-size: 18px;
+  }
+  @include phone {
+    font-size: 16px;
   }
 }
 

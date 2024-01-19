@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { isMobile } from 'react-device-detect';
 import clsx from 'clsx';
 
 import { IFeatureData } from 'app/featureData';
@@ -32,6 +31,8 @@ export const FeaturesAndServices: React.FC<FeaturesAndServicesProps> = ({
     reverse = false,
     contentImg,
 }) => {
+    const isMobile = window.innerWidth <= 768;
+
     const featureClass = clsx({
         [scss.features]: !reverse,
         [scss.features_reverse]: reverse,
