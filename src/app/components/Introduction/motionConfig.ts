@@ -1,5 +1,14 @@
 import { Variants } from 'framer-motion';
 
+export const mobileVariant: Variants = {
+    hidden: {
+        opacity: 1,
+    },
+    visible: {
+        opacity: 1,
+    },
+};
+
 export const section: Variants = {
     hidden: {
         opacity: 0,

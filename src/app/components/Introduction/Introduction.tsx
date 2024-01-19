@@ -10,6 +10,7 @@ import { Circles } from 'app/components/Introduction/IntroCircles/Circles';
 import {
     card,
     img,
+    mobileVariant,
     section,
     tags,
 } from 'app/components/Introduction/motionConfig';
@@ -23,7 +24,7 @@ import { isMobile } from 'react-device-detect';
 export const Introduction = () => {
     return (
         <motion.section
-            variants={isMobile ? {} : section}
+            variants={isMobile ? mobileVariant : section}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -33,7 +34,7 @@ export const Introduction = () => {
                 <Circles />
                 <motion.div
                     viewport={{ once: true }}
-                    variants={isMobile ? {} : card}
+                    variants={isMobile ? mobileVariant : card}
                     className={scss.desc_card_wrapper}
                 >
                     <div className={scss.desc_card}>
@@ -61,7 +62,7 @@ export const Introduction = () => {
                 </motion.div>
                 <motion.div
                     viewport={{ once: true }}
-                    variants={isMobile ? {} : img}
+                    variants={isMobile ? mobileVariant : img}
                     className={scss.desc_image_wrapper}
                 >
                     <Image
@@ -77,7 +78,7 @@ export const Introduction = () => {
                 </motion.div>
             </div>
             <motion.div
-                variants={isMobile ? {} : tags}
+                variants={isMobile ? mobileVariant : tags}
                 viewport={{ once: true }}
                 className={scss.tags_layout}
             >
