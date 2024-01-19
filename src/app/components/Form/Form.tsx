@@ -152,7 +152,7 @@ export const Form: React.FC<FormProps> = () => {
                                 label="Номер телефона"
                                 name="phone"
                                 placeholder="+7(___)___-__-__"
-                                handleError={errors.phone}
+                                handleError={touched.phone && errors.phone}
                                 value={values.phone}
                                 alwaysShowMask={true}
                                 mask="+7(999)999-99-99"

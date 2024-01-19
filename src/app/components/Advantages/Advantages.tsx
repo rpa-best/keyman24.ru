@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import { isMobile } from 'react-device-detect';
 
 import { SvgContainer } from 'app/components/Advantages/SvgContainer';
 import { advData } from 'app/components/Advantages/advData';
@@ -12,7 +13,7 @@ import scss from './Advantages.module.scss';
 export const Advantages = () => {
     return (
         <motion.section
-            variants={advSection}
+            variants={isMobile ? undefined : advSection}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.6 }}
@@ -26,7 +27,7 @@ export const Advantages = () => {
                             key={i}
                             viewport={{ once: true }}
                             custom={i}
-                            variants={advElement}
+                            variants={isMobile ? undefined : advElement}
                             className={scss.adv_wrapper}
                         >
                             <SvgContainer elem={el.svg} />
