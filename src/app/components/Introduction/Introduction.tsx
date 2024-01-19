@@ -18,10 +18,9 @@ import IntroImg from '/public/intro.jpg';
 
 import scss from './Introduction.module.scss';
 import Image from 'next/image';
+import { isMobile } from 'react-device-detect';
 
 export const Introduction = () => {
-    const isMobile = window.innerWidth <= 768;
-
     return (
         <motion.section
             variants={isMobile ? {} : section}
