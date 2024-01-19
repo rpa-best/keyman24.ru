@@ -2,12 +2,13 @@
 
 import React, { useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { toast } from 'react-toastify';
+import { isMobile } from 'react-device-detect';
 
 import ExitSvg from '/public/svg/x.svg';
 import { useModalStore } from 'store/modalVisibleStore';
 
 import scss from './Modal.module.scss';
-import { toast } from 'react-toastify';
 
 interface ModalProps {
     children: React.ReactElement;
@@ -29,7 +30,7 @@ export const Modal: React.FC<ModalProps> = ({ children }) => {
         <AnimatePresence>
             {visible && (
                 <motion.div
-                    initial={{ opacity: 0 }}
+                    initial={{ opacity: isMobile ? 0 : 1 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     onClick={() => {

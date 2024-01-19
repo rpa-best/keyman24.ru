@@ -3,9 +3,13 @@ import { Variants } from 'framer-motion';
 export const mobileVariant: Variants = {
     hidden: {
         opacity: 1,
+        x: 0,
+        y: 0,
     },
     visible: {
         opacity: 1,
+        x: 0,
+        y: 0,
     },
 };
 
