@@ -7,7 +7,7 @@ import { Button } from 'components/UI/Button';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
-import scss from 'app/Main.module.scss';
+import scss from 'app/(Main)/Main.module.scss';
 import { useModalStore } from 'store/modalVisibleStore';
 
 export const Header = () => {
