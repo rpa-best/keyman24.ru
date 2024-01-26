@@ -4,7 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import clsx from 'clsx';
 
-import { IFeatureData } from 'app/featureData';
+import { IFeatureData } from 'app/(Main)/featureData';
 import Image, { StaticImageData } from 'next/image';
 import { SvgWrapper } from 'app/components/FeaturesAndServices/SvgWrapper';
 import { ButtonWrapper } from 'app/components/FeaturesAndServices/ButtonWrapper';

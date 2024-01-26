@@ -5,7 +5,7 @@ import {
     featureDataOne,
     featureDataThree,
     featureDataTwo,
-} from 'app/featureData';
+} from 'app/(Main)/featureData';
 import { Modal } from 'components/Modal';
 import { Form } from 'app/components/Form';
 import Checkpoint from '/public/checkpoint.jpg';
