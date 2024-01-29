@@ -10,6 +10,7 @@ import { Modal } from 'components/Modal';
 import { Form } from 'app/components/Form';
 import Checkpoint from '/public/checkpoint.jpg';
 import Inventory from '/public/inventory.jpg';
+import Keys from '/public/keys.jpg';
 
 export default function Home() {
     return (
@@ -23,7 +24,7 @@ export default function Home() {
                     features={featureDataOne}
                 />
                 <FeaturesAndServices
-                    contentImg={Inventory}
+                    contentImg={Keys}
                     reverse
                     note="* работы подрядчиков в различных помещениях. На основе реальных замеров. "
                     features={featureDataTwo}
