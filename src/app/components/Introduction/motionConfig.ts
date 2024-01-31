@@ -24,7 +24,7 @@ export const section: Variants = {
 
 export const card: Variants = {
     hidden: {
-        x: -20,
+        x: -50,
         opacity: 0,
     },
     visible: {
@@ -39,12 +39,10 @@ export const card: Variants = {
 
 export const img: Variants = {
     hidden: {
-        overflow: 'hidden',
-        x: '8%',
+        x: 100,
         opacity: 0,
     },
     visible: {
-        overflow: 'auto',
         x: 0,
         opacity: 1,
         transition: {
@@ -55,7 +53,7 @@ export const img: Variants = {
 };
 export const tags: Variants = {
     hidden: {
-        y: 20,
+        y: 50,
         opacity: 0,
     },
     visible: {
