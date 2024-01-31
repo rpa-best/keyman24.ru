@@ -13,7 +13,7 @@ export const Circles = () => {
             initial="hidden"
             animate="visible"
             custom={item}
-            variants={isMobile ? undefined : circleAnimation}
+            variants={/*isMobile ? undefined : */ circleAnimation}
             className={scss.circle}
             key={item}
         />
