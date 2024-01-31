@@ -14,7 +14,7 @@ import { mobileVariant } from 'app/components/Introduction/motionConfig';
 export const Advantages = () => {
     return (
         <motion.section
-            variants={isMobile ? mobileVariant : advSection}
+            variants={/*isMobile ? mobileVariant :*/ advSection}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.6 }}
@@ -28,7 +28,7 @@ export const Advantages = () => {
                             key={i}
                             viewport={{ once: true }}
                             custom={i}
-                            variants={isMobile ? mobileVariant : advElement}
+                            variants={/*isMobile ? mobileVariant :*/ advElement}
                             className={scss.adv_wrapper}
                         >
                             <SvgContainer elem={el.svg} />
