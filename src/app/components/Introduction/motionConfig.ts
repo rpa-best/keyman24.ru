@@ -12,6 +12,18 @@ export const mobileVariant: Variants = {
     },
 };
 
+export const mobileCardVariant: Variants = {
+    hidden: {
+        opacity: 0,
+        x: -100,
+    },
+    visible: {
+        opacity: 1,
+        x: 0,
+        y: 0,
+    },
+};
+
 export const section: Variants = {
     hidden: {
         opacity: 0,

@@ -10,6 +10,7 @@ import { Circles } from 'app/components/Introduction/IntroCircles/Circles';
 import {
     card,
     img,
+    mobileCardVariant,
     mobileVariant,
     section,
     tags,
@@ -34,7 +35,7 @@ export const Introduction = () => {
                 <Circles />
                 <motion.div
                     viewport={{ once: true }}
-                    variants={isMobile ? mobileVariant : card}
+                    variants={isMobile ? mobileCardVariant : card}
                     className={scss.desc_card_wrapper}
                 >
                     <div className={scss.desc_card}>
