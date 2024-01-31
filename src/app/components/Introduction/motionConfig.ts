@@ -33,6 +33,7 @@ export const card: Variants = {
         transition: {
             duration: 0.4,
             delay: 0.5,
+            ease: 'easeInOut',
         },
     },
 };
@@ -48,6 +49,7 @@ export const img: Variants = {
         transition: {
             duration: 0.4,
             delay: 0.5,
+            ease: 'easeInOut',
         },
     },
 };
@@ -62,6 +64,7 @@ export const tags: Variants = {
         transition: {
             duration: 0.4,
             delay: 0.5,
+            ease: 'easeInOut',
         },
     },
 };
