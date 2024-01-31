@@ -40,7 +40,7 @@ export const FeaturesAndServices: React.FC<FeaturesAndServicesProps> = ({
 
     return (
         <motion.section
-            variants={isMobile ? mobileVariant : featureSect}
+            variants={/*isMobile ? mobileVariant :*/ featureSect}
             viewport={{ once: true, amount: 0.4 }}
             whileInView="visible"
             initial="hidden"
@@ -49,14 +49,14 @@ export const FeaturesAndServices: React.FC<FeaturesAndServicesProps> = ({
             <div className={featureClass}>
                 <motion.div className={scss.features_description}>
                     <motion.h3
-                        variants={isMobile ? mobileVariant : featureText}
+                        variants={/*isMobile ? mobileVariant :*/ featureText}
                         custom={1}
                         className={scss.features_description_title}
                     >
                         {features.title}
                     </motion.h3>
                     <motion.p
-                        variants={isMobile ? mobileVariant : featureText}
+                        variants={/*isMobile ? mobileVariant :*/ featureText}
                         custom={1.2}
                         className={scss.features_description_text}
                     >
@@ -65,7 +65,9 @@ export const FeaturesAndServices: React.FC<FeaturesAndServicesProps> = ({
                     <div className={scss.features_list}>
                         {features.featuresList.map((f, i) => (
                             <motion.div
-                                variants={isMobile ? mobileVariant : textElem}
+                                variants={
+                                    /*isMobile ? mobileVariant :*/ textElem
+                                }
                                 custom={i + 1}
                                 viewport={{ once: true, amount: 0.4 }}
                                 key={i}
@@ -86,7 +88,7 @@ export const FeaturesAndServices: React.FC<FeaturesAndServicesProps> = ({
                     </div>
                     <motion.div
                         viewport={{ once: true, amount: 0.4 }}
-                        variants={isMobile ? mobileVariant : featureBtn}
+                        variants={/*isMobile ? mobileVariant :*/ featureBtn}
                         className={scss.button_wrapper}
                     >
                         <ButtonWrapper />
@@ -94,7 +96,7 @@ export const FeaturesAndServices: React.FC<FeaturesAndServicesProps> = ({
                     <span className={scss.features_note}>{note}</span>
                 </motion.div>
                 <motion.div
-                    variants={isMobile ? mobileVariant : featureImg}
+                    variants={/*isMobile ? mobileVariant :*/ featureImg}
                     className={scss.img_wrapper}
                 >
                     <Image

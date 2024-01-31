@@ -11,7 +11,7 @@ export const featureSect: Variants = {
 
 export const featureText: Variants = {
     hidden: {
-        x: -20,
+        x: -30,
         opacity: 0,
     },
     visible: (custom) => ({
