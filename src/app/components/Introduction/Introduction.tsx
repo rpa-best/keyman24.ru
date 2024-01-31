@@ -34,7 +34,7 @@ export const Introduction = () => {
                 <Circles />
                 <motion.div
                     viewport={{ once: true }}
-                    variants={/*isMobile ? mobileVariant : */ card}
+                    variants={isMobile ? mobileVariant : card}
                     className={scss.desc_card_wrapper}
                 >
                     <div className={scss.desc_card}>
@@ -62,7 +62,7 @@ export const Introduction = () => {
                 </motion.div>
                 <motion.div
                     viewport={{ once: true }}
-                    variants={/*isMobile ? mobileVariant : */ img}
+                    variants={isMobile ? mobileVariant : img}
                     className={scss.desc_image_wrapper}
                 >
                     <Image
