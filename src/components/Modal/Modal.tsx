@@ -11,29 +11,40 @@ import { useModalStore } from 'store/modalVisibleStore';
 import scss from './Modal.module.scss';
 
 interface ModalProps {
+    customVisible?: boolean;
+    setCustomVisible?: (v: boolean) => void;
     children: React.ReactElement;
 }
 
-export const Modal: React.FC<ModalProps> = ({ children }) => {
+export const Modal: React.FC<ModalProps> = ({
+    customVisible,
+    setCustomVisible,
+    children,
+}) => {
     const [visible] = useModalStore((state) => [state.visible]);
     const [setVisible] = useModalStore((state) => [state.setVisible]);
 
+    const isVisible = visible || customVisible;
+
     useEffect(() => {
-        if (visible) {
-            document.body.style.overflow = 'hidden';
+        if (isVisible) {
+            document.body.style.overflowX = 'hidden';
         } else {
-            document.body.style.overflow = 'auto';
+            document.body.style.overflowX = 'auto';
         }
-    }, [visible]);
+    }, [isVisible]);
 
     return (
         <AnimatePresence>
-            {visible && (
+            {isVisible && (
                 <motion.div
                     initial={{ opacity: isMobile ? 0 : 1 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     onClick={() => {
+                        if (setCustomVisible) {
+                            setCustomVisible(false);
+                        }
                         setVisible(false);
                         toast.dismiss();
                     }}
@@ -41,13 +52,22 @@ export const Modal: React.FC<ModalProps> = ({ children }) => {
                 >
                     <motion.div
                         onClick={(e) => e.stopPropagation()}
-                        initial={{ opacity: 0, transform: 'translateY(25%)' }}
+                        initial={{
+                            opacity: 0,
+                            transform: 'translateY(50px)',
+                        }}
                         animate={{ opacity: 1, transform: 'translateY(0)' }}
-                        exit={{ opacity: 0, transform: 'translateY(25%)' }}
+                        exit={{
+                            opacity: 0,
+                            transform: 'translateY(50px)',
+                        }}
                         className={scss.modal}
                     >
                         <ExitSvg
                             onClick={() => {
+                                if (setCustomVisible) {
+                                    setCustomVisible(false);
+                                }
                                 setVisible(false);
                                 toast.dismiss();
                             }}

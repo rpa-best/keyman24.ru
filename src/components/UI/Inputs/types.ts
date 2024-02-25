@@ -11,6 +11,7 @@ export interface IInputProps {
     size?: 'big' | 'medium';
     theme?: 'light' | 'dark';
     errorFontColor?: string;
+    maxLength?: number;
     onBlur?: (
         event: FocusEvent<HTMLInputElement> | FocusEvent<HTMLTextAreaElement>
     ) => void;

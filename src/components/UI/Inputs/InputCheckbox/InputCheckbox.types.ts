@@ -4,5 +4,6 @@ export interface InputCheckboxProps {
     value: boolean;
     type: string;
     onChange: (v: boolean) => void;
+    handleErrors?: string;
     theme?: 'light' | 'dark';
 }

@@ -1,6 +1,7 @@
 @import "scss/utils";
 
 .input_container {
+  height: 33.6px;
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
@@ -68,4 +69,10 @@
 .input_description_light {
   @extend .input_description;
   color: black;
+}
+
+.checkbox_error {
+  @include MontserratRegular(12px);
+  color: $error-color;
+
 }
