@@ -57,3 +57,11 @@ export type CreateAccount = (
 export type AuthAccount = CreateAccount;
 
 export type CreateRequest = (body: CreateReqBody) => Promise<void>;
+
+export interface SendMessageBody {
+    phone: string;
+    name: string;
+    message: string;
+}
+
+export type SendMessage = (body: SendMessageBody) => Promise<void>;

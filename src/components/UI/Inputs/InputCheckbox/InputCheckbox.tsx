@@ -8,6 +8,7 @@ export const InputCheckbox = ({
     label,
     type,
     value,
+    handleErrors,
     onChange,
     theme = 'dark',
 }: InputCheckboxProps) => {
@@ -42,6 +43,9 @@ export const InputCheckbox = ({
                     />
                 </label>
             </div>
+            {handleErrors && (
+                <label className={css.checkbox_error}>{handleErrors}</label>
+            )}
         </div>
     );
 };

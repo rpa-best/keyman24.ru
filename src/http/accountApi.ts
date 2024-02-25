@@ -52,3 +52,7 @@ export const createRequest: T.CreateRequest = async (body) => {
         },
     });
 };
+
+export const sendMessage: T.SendMessage = async (body) => {
+    return await $clientAuth.post('account/report/', body);
+};

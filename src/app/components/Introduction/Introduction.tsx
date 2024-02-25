@@ -7,6 +7,8 @@ import { ButtonWrapper } from 'app/components/Introduction/ButtonWrapper';
 import { Button } from 'components/UI/Button';
 import { introData } from 'app/components/Introduction/introData';
 import { Circles } from 'app/components/Introduction/IntroCircles/Circles';
+import Image from 'next/image';
+import { isMobile } from 'react-device-detect';
 import {
     card,
     img,
@@ -19,8 +21,6 @@ import {
 import IntroImg from '/public/intro.jpg';
 
 import scss from './Introduction.module.scss';
-import Image from 'next/image';
-import { isMobile } from 'react-device-detect';
 
 export const Introduction = () => {
     return (

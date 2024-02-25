@@ -1,14 +1,5 @@
 @import "scss/utils";
 
-.input_big {
-  @extend .input;
-  height: 70px!important;
-}
-
-.input_big_light {
-  @extend .input_big;
-  border: 2px solid $gray-semi;
-}
 
 .input {
   width: 100%;
@@ -49,6 +40,35 @@
   }
 }
 
+.input_big {
+  @extend .input;
+  height: 70px;
+}
+
+.input_big_light {
+  @extend .input_big;
+  border: 2px solid $gray-semi;
+}
+
+.input_textarea {
+  @extend .input;
+  height: 185px;
+  resize: none;
+  border: 2px solid #C5C5C5;
+  padding: 10px 5px;
+}
+
+.textarea_footer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  & label {
+    &:nth-child(2) {
+      width: max-content;
+    }
+  }
+}
+
 .input_light {
   @extend .input;
   border: 2px solid $gray-semi;
@@ -86,34 +106,6 @@
   background: white;
 }
 
-.field_noneed {
-  height: max-content!important;
-  margin-top: 0!important;
-}
-
-.field_with_label_big {
-  @extend .field;
-  height: 115px!important;
-  margin-top: 0!important;
-  justify-content: flex-start!important;
-}
-
-.field_big {
-  @extend .field;
-  height: 95px!important;
-  margin-top: 15px;
-}
-
-.field_with_label {
-  @extend .field;
-  height: 90px!important;
-  margin-top: 0!important;
-  justify-content: flex-start!important;
-  @include phone {
-    height: 80px!important;
-  }
-}
-
 .field {
   height: 50px;
   display: flex;
@@ -127,6 +119,36 @@
     margin-top: 15px;
   }
 }
+
+.field_noneed {
+  height: max-content;
+  margin-top: 0;
+}
+
+.field_with_label_big {
+  @extend .field;
+  height: 115px;
+  margin-top: 0;
+  justify-content: flex-start;
+}
+
+.field_big {
+  @extend .field;
+  height: 95px;
+  margin-top: 15px;
+}
+
+.field_with_label {
+  @extend .field;
+  height: 90px;
+  margin-top: 0;
+  justify-content: flex-start;
+  @include phone {
+    height: 80px
+  }
+}
+
+
 
 .input_label {
   width: 100%;
@@ -159,3 +181,8 @@
   @extend .input_error_label
 }
 
+.field_textarea {
+  @extend .field;
+  height: 230px;
+  margin-top: 0;
+}
